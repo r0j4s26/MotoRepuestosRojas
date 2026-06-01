@@ -1,0 +1,281 @@
+﻿@using Microsoft.AspNetCore.Http
+@using System;
+@using System.Collections.Generic;
+@using System.IO;
+@using System.Linq;
+@using System.Security.Claims;
+@using System.Threading.Tasks;
+@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.AspNetCore.Mvc.RazorPages;
+@using Microsoft.Extensions.Configuration;
+@using Refit;
+@using Sicsoft.Checkin.Web.Models;
+@inject IHttpContextAccessor httpContextAccessor
+@{
+    var Roles = ((ClaimsIdentity)User.Identity).Claims.Where(d => d.Type == "Roles").Select(s1 => s1.Value).FirstOrDefault().Split("|");
+}
+@section styles {
+    <style>
+
+        .menu-divider-line {
+            margin: 12px 15px;
+            height: 1px;
+            background: rgba(255,255,255,0.15);
+            list-style: none;
+        }
+    </style>
+}
+<!--start sidebar-->
+<aside class="sidebar-wrapper" data-simplebar="true">
+    <div class="sidebar-header">
+        <div class="logo-icon">
+            <a asp-page="/Index">
+                <img src="/img/logo.png" class="logo-img" width="150" />
+            </a>
+
+        </div>
+        <div class="logo-name flex-grow-1">
+            <h5 class="mb-0">ROJAS</h5>
+        </div>
+        @*    <div class="sidebar-close">
+        <span class="material-icons-outlined">close</span>
+        </div> *@
+    </div>
+    <div class="sidebar-nav">
+        <!--navigation-->
+        <ul class="metismenu" id="sidenav">
+            <li>
+                <a href="javascript:;" class="has-arrow">
+                    <div class="parent-icon">
+                        <i class="material-icons-outlined">home</i>
+                    </div>
+                    <div class="menu-title">Administrativo</div>
+                </a>
+                <ul>
+                    @if (!string.IsNullOrEmpty(Roles.Where(a => a == "1").FirstOrDefault()))
+                    {
+
+
+                        <li>
+                            <a class="has-arrow" href="javascript:;" aria-expanded="true">
+                                <i class="material-icons-outlined">fact_check</i>Bitácoras
+
+                            </a>
+                            <ul class="mm-collapse" style="">
+                                <li>
+                                    <a asp-page="/BitacoraErrores/Index"><i class="material-icons-outlined">bug_report</i>Bitácora Errores</a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                    @if (!string.IsNullOrEmpty(Roles.Where(a => a == "4").FirstOrDefault()))
+                    {
+
+                        <li>
+                            <a class="has-arrow" href="javascript:;" aria-expanded="true">
+                                <i class="material-icons-outlined">security</i>Seguridad
+
+                            </a>
+                            <ul class="mm-collapse" style="">
+                                <li>
+                                    <a asp-page="/Usuarios/Index"><i class="material-icons-outlined">group</i>Usuarios</a>
+                            </ul>
+                        </li>
+
+
+                    }
+
+                    <li>
+                        <a class="has-arrow" href="javascript:;" aria-expanded="true">
+                            <i class="material-icons-outlined">groups</i>Socio de Negocios
+
+                        </a>
+
+                        @if (!string.IsNullOrEmpty(Roles.Where(a => a == "1").FirstOrDefault()))
+                        {
+                            <ul class="mm-collapse" style="">
+
+
+                                <li>
+                                    <a asp-page="/Clientes/Index"><i class="material-icons-outlined">groups</i>Clientes</a>
+                                </li>
+
+
+
+                            </ul>
+                        }
+                    </li>
+                    <li>
+                        <a class="has-arrow" href="javascript:;" aria-expanded="true">
+                            <i class="material-icons-outlined">groups</i>Precios
+
+                        </a>
+
+                        @if (!string.IsNullOrEmpty(Roles.Where(a => a == "1").FirstOrDefault()))
+                        {
+                            <ul class="mm-collapse" style="">
+
+
+                                <li>
+                                    <a asp-page="/CondicionesPagos/Index"><i class="material-icons-outlined">groups</i>Condiciones De Pago</a>
+                                </li>
+
+
+
+                            </ul>
+                        }
+                        @if (!string.IsNullOrEmpty(Roles.Where(a => a == "1").FirstOrDefault()))
+                        {
+                            <ul class="mm-collapse" style="">
+
+
+                                <li>
+                                    <a asp-page="/Impuestos/Index"><i class="material-icons-outlined">groups</i>Impuestos</a>
+                                </li>
+
+
+
+                            </ul>
+                        }
+                    </li>
+                  
+                        <li>
+                            <a class="has-arrow" href="javascript:;" aria-expanded="true">
+                                <i class="material-icons-outlined">groups</i>Inventario
+
+                            </a>
+                        @if (!string.IsNullOrEmpty(Roles.Where(a => a == "1").FirstOrDefault()))
+                        {
+                            <ul class="mm-collapse" style="">
+
+
+                                <li>
+                                    <a asp-page="/Productos/Index"><i class="material-icons-outlined">groups</i>Productos</a>
+                                </li>
+
+
+
+                            </ul>
+                            }
+                        @if (!string.IsNullOrEmpty(Roles.Where(a => a == "1").FirstOrDefault()))
+                        {
+                            <ul class="mm-collapse" style="">
+
+
+                                <li>
+                                    <a asp-page="/Categorias/Index"><i class="material-icons-outlined">groups</i>Categorias</a>
+                                </li>
+
+
+
+                            </ul>
+                        }
+                        @if (!string.IsNullOrEmpty(Roles.Where(a => a == "1").FirstOrDefault()))
+                        {
+                            <ul class="mm-collapse" style="">
+
+
+                                <li>
+                                    <a asp-page="/Bodegas/Index"><i class="material-icons-outlined">groups</i>Bodegas</a>
+                                </li>
+
+
+
+                            </ul>
+                        }
+                        </li>
+                   
+
+
+                    <li>
+                        <a class="has-arrow" href="javascript:;" aria-expanded="true">
+                            <i class="material-icons-outlined">menu_book</i>Catálogos
+
+                        </a>
+                        <ul class="mm-collapse" style="">
+                            @if (!string.IsNullOrEmpty(Roles.Where(a => a == "8").FirstOrDefault()))
+                            {
+                                <li>
+                                    <a asp-page="/Sucursales/Index"><i class="material-icons-outlined">business</i>Sucursales</a>
+                                </li>
+
+                            }
+
+                            @if (!string.IsNullOrEmpty(Roles.Where(a => a == "14").FirstOrDefault()))
+                            {
+                                <li>
+                                    <a asp-page="/Presupuestos/Index"><i class="material-icons-outlined">request_quote</i>Presupuestos</a>
+                                </li>
+
+                            }
+
+                            @if (!string.IsNullOrEmpty(Roles.Where(a => a == "22").FirstOrDefault()))
+                            {
+                                <li>
+                                    <a asp-page="/Marcas/Index"><i class="material-icons-outlined">sell</i>Marcas</a>
+                                </li>
+
+                            }
+                            @if (!string.IsNullOrEmpty(Roles.Where(a => a == "23").FirstOrDefault()))
+                            {
+                                <li>
+                                    <a asp-page="/Grupos/Index"><i class="material-icons-outlined">inventory_2</i>Grupos</a>
+                                </li>
+
+                            }
+                            @if (!string.IsNullOrEmpty(Roles.Where(a => a == "24").FirstOrDefault()))
+                            {
+                                <li>
+                                    <a asp-page="/Ingredientes/Index"><i class="material-icons-outlined">science</i>Ingredientes</a>
+                                </li>
+
+                            }
+                            @if (!string.IsNullOrEmpty(Roles.Where(a => a == "25").FirstOrDefault()))
+                            {
+                                <li>
+                                    <a asp-page="/Productos/Index"><i class="material-icons-outlined">inventory_2</i>Productos</a>
+                                </li>
+
+                            }
+                            @if (!string.IsNullOrEmpty(Roles.Where(a => a == "26").FirstOrDefault()))
+                            {
+                                <li>
+                                    <a asp-page="/Precios/Index"><i class="material-icons-outlined">attach_money</i>Precios</a>
+                                </li>
+
+                            }
+                        </ul>
+                    </li>
+
+
+
+
+
+                    @if (!string.IsNullOrEmpty(Roles.Where(a => a == "27").FirstOrDefault()))
+                    {
+                        <li>
+                            <a asp-page="/Ventas/Index"><i class="material-icons-outlined">bar_chart</i>Ventas</a>
+                        </li>
+
+                    }
+                </ul>
+            </li>
+            <hr />
+
+            @if (!string.IsNullOrEmpty(Roles.Where(a => a == "38").FirstOrDefault()))
+            {
+                <li>
+                    <a asp-page="/Forecast/Index">
+                        <div class="parent-icon">
+                            <i class="material-icons-outlined">trending_up</i>
+                        </div>
+                        <div class="menu-title">Forecast</div>
+                    </a>
+                </li>
+            }
+        </ul>
+        <!--end navigation-->
+    </div>
+
+</aside>
+<!--end sidebar-->

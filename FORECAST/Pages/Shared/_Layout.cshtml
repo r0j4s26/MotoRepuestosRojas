@@ -1,0 +1,771 @@
+﻿@using Microsoft.AspNetCore.Http
+@using System;
+@using System.Collections.Generic;
+@using System.IO;
+@using System.Linq;
+@using System.Security.Claims;
+@using System.Threading.Tasks;
+@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.AspNetCore.Mvc.RazorPages;
+@using Microsoft.Extensions.Configuration;
+@using Refit;
+@using Sicsoft.Checkin.Web.Models;
+@inject IHttpContextAccessor httpContextAccessor
+@{
+    var Roles = ((ClaimsIdentity)User.Identity).Claims.Where(d => d.Type == "Roles").Select(s1 => s1.Value).FirstOrDefault().Split("|");
+}
+<style>
+    /* Footer fijo sobre el contenido (siempre visible) */
+    footer.page-footer {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1050; /* encima del contenido pero debajo de modals si es necesario */
+        padding: 12px 20px;
+        background: rgba(3,12,30,0.9); /* ajustá color/opa según tema */
+        color: #fff;
+    }
+
+    /* Evitar que el contenido quede oculto por el footer:
+       añade padding-bottom al main (igual a la altura del footer) */
+    main.main-wrapper {
+        padding-bottom: 60px; /* ajustá según la altura real del footer */
+    }
+    /* =========================
+               LIGHT MODE BASE (GLOBAL)
+            ========================= */
+    html[data-bs-theme="light"] {
+        --bg-top: #f4f6fb;
+        --bg-bottom: #e9eef7;
+        --text-light: #1e1e2f;
+        --panel-bg: #ffffff;
+        --panel-border: #ddd;
+        --table-bg: #ffffff;
+    }
+
+        html[data-bs-theme="light"] .revisado-row td {
+            background-color: #d4edda !important; /* verde clarito */
+        }
+        /* =========================
+               BODY
+            ========================= */
+        html[data-bs-theme="light"] body {
+            background: linear-gradient(180deg, var(--bg-top), var(--bg-bottom)) !important;
+            color: var(--text-light) !important;
+        }
+
+        /* =========================
+               KPI HEADER (🔥 clave)
+            ========================= */
+        html[data-bs-theme="light"] .sticky-kpis {
+            background: #f4f6fb !important;
+            background-image: none !important;
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* =========================
+               KPI CARDS
+            ========================= */
+        html[data-bs-theme="light"] .kpi-card {
+            background: #ffffff !important;
+            color: #1e1e2f !important;
+            border: 1px solid #ddd !important;
+        }
+
+        html[data-bs-theme="light"] .kpi-value {
+            color: #000 !important;
+        }
+
+        html[data-bs-theme="light"] .kpi-sub {
+            color: #555 !important;
+        }
+
+        /* =========================
+               FILTROS
+            ========================= */
+        html[data-bs-theme="light"] .filter-card {
+            background: #ffffff !important;
+            border: 1px solid #ddd;
+        }
+
+        /* =========================
+               INPUTS (🔥 con estados)
+            ========================= */
+
+        /* Normal */
+        html[data-bs-theme="light"] .month-input {
+            background: #ffffff !important;
+            color: #000 !important;
+            border: 1px solid #ccc !important;
+        }
+
+            /* Focus */
+            html[data-bs-theme="light"] .month-input:focus {
+                border-color: #0d6efd !important;
+                box-shadow: 0 0 0 0.1rem rgba(13,110,253,.25);
+            }
+
+            /* Disabled */
+            html[data-bs-theme="light"] .month-input:disabled {
+                background: #e9ecef !important;
+                color: #6c757d !important;
+                border-color: #ced4da !important;
+                cursor: not-allowed;
+            }
+
+            /* Readonly */
+            html[data-bs-theme="light"] .month-input[readonly] {
+                background: #f8f9fa !important;
+                color: #495057 !important;
+            }
+
+        /* =========================
+               TABLA
+            ========================= */
+        html[data-bs-theme="light"] .table {
+            background: #ffffff !important;
+            color: #000 !important;
+        }
+
+            html[data-bs-theme="light"] .table thead th {
+                color: #333 !important;
+                background: #f1f3f5 !important;
+            }
+
+            html[data-bs-theme="light"] .table tbody td {
+                color: #000 !important;
+            }
+
+        /* =========================
+               BOTONES
+            ========================= */
+        html[data-bs-theme="light"] .btn-ghost {
+            color: #333 !important;
+            border: 1px solid #ccc !important;
+        }
+
+            html[data-bs-theme="light"] .btn-ghost:hover {
+                background: #e9ecef !important;
+            }
+
+            html[data-bs-theme="light"] .btn-ghost.active {
+                background: #0d6efd !important;
+                color: #fff !important;
+            }
+
+        /* =========================
+               SELECT2 (IMPORTANTE)
+            ========================= */
+        html[data-bs-theme="light"] .select2-container--default .select2-selection--single {
+            background-color: #ffffff !important;
+            border: 1px solid #ccc !important;
+            color: #000 !important;
+        }
+
+        html[data-bs-theme="light"] .select2-results__option {
+            background: #fff !important;
+            color: #000 !important;
+        }
+
+        html[data-bs-theme="light"] .select2-results__option--highlighted {
+            background: #0d6efd !important;
+            color: #fff !important;
+        }
+
+        /* =========================
+               TEXTOS GENERALES
+            ========================= */
+        html[data-bs-theme="light"] label,
+        html[data-bs-theme="light"] .form-label {
+            color: #333 !important;
+        }
+
+        /* =========================
+               CONTENEDORES
+            ========================= */
+        html[data-bs-theme="light"] .container-fluid {
+            background: transparent !important;
+        }
+
+        /* =========================
+               FOOTER
+            ========================= */
+        html[data-bs-theme="light"] footer.page-footer {
+            background: #ffffff !important;
+            color: #333 !important;
+            border-top: 1px solid #ddd;
+        }
+        /* ===== SELECT2 TEXTO NEGRO (LIGHT MODE) ===== */
+        html[data-bs-theme="light"] .select2-container--default .select2-selection--single {
+            color: #000 !important;
+        }
+
+        /* Placeholder (cuando dice "Seleccione...") */
+        html[data-bs-theme="light"] .select2-container--default .select2-selection__placeholder {
+            color: #6c757d !important; /* gris bonito */
+        }
+
+        /* Texto seleccionado */
+        html[data-bs-theme="light"] .select2-container--default .select2-selection__rendered {
+            color: #000 !important;
+        }
+
+        /* Flechita */
+        html[data-bs-theme="light"] .select2-container--default .select2-selection__arrow b {
+            border-color: #000 transparent transparent transparent !important;
+        }
+
+        html[data-bs-theme="light"] .select2-dropdown {
+            background: #fff !important;
+            color: #000 !important;
+        }
+
+        html[data-bs-theme="light"] .select2-results__option {
+            color: #000 !important;
+        }
+
+        /* Hover */
+        html[data-bs-theme="light"] .select2-results__option--highlighted {
+            background: #0d6efd !important;
+            color: #fff !important;
+        }
+        /* ===== ICONOS GENERALES ===== */
+        html[data-bs-theme="light"] i,
+        html[data-bs-theme="light"] svg {
+            color: #000 !important;
+            fill: #000 !important;
+        }
+        /* Expand / botones / acciones */
+        html[data-bs-theme="light"] .btn i,
+        html[data-bs-theme="light"] .expand-icon i {
+            color: #333 !important;
+        }
+
+        /* Hover bonito */
+        html[data-bs-theme="light"] .btn:hover i,
+        html[data-bs-theme="light"] .expand-icon:hover i {
+            color: #0d6efd !important;
+        }
+
+        html[data-bs-theme="light"] .sidebar i {
+            color: #333 !important;
+        }
+
+        html[data-bs-theme="light"] .sidebar a:hover i {
+            color: #0d6efd !important;
+        }
+
+        html[data-bs-theme="light"] .sidebar a:hover i {
+            color: #0d6efd !important;
+        }
+    /* =========================
+       DARK MODE FIX (RESTAURAR)
+    ========================= */
+    html[data-bs-theme="dark"] {
+        --bg-top: #0f172a; /* azul-negro */
+        --bg-bottom: #1e293b;
+        --text-light: #e9eef7;
+        --panel-bg: rgba(255,255,255,0.04);
+        --panel-border: rgba(255,255,255,0.06);
+        --table-bg: rgba(6,12,28,0.65);
+    }
+
+        /* ===== KPI HEADER ===== */
+        html[data-bs-theme="dark"] .sticky-kpis {
+            background: linear-gradient(180deg, var(--bg-top), var(--bg-bottom)) !important;
+        }
+
+        /* ===== KPI CARDS ===== */
+        html[data-bs-theme="dark"] .kpi-card {
+            background: var(--panel-bg) !important;
+            color: #e9eef7 !important;
+            border: 1px solid var(--panel-border) !important;
+        }
+
+        /* ===== INPUTS ===== */
+        html[data-bs-theme="dark"] .month-input {
+            background: rgba(120, 160, 185, 0.35) !important;
+            color: #e9eef7 !important;
+            border-color: #7be6d4 !important;
+        }
+
+            /* Disabled */
+            html[data-bs-theme="dark"] .month-input:disabled {
+                background: rgba(120, 160, 185, 0.2) !important;
+                color: rgba(255,255,255,0.6) !important;
+            }
+
+        /* ===== TABLA ===== */
+        html[data-bs-theme="dark"] .table {
+            background: transparent !important;
+            color: #e9eef7 !important;
+        }
+
+            html[data-bs-theme="dark"] .table thead th {
+                color: rgba(255,255,255,0.7) !important;
+            }
+
+        /* ===== SELECT2 ===== */
+        html[data-bs-theme="dark"] .select2-container--default .select2-selection--single {
+            background-color: rgba(6,12,28,0.65) !important;
+            color: #fff !important;
+            border: 1px solid #7be6d4 !important;
+        }
+
+        /* ===== ICONOS ===== */
+        html[data-bs-theme="dark"] i,
+        html[data-bs-theme="dark"] svg {
+            color: #e9eef7 !important;
+            fill: #e9eef7 !important;
+        }
+
+    html[data-bs-theme="light"] .detail-row td {
+        background: #f3f3f3 !important;
+    }
+
+        html[data-bs-theme="light"] .detail-row td .month-input {
+            background: #f3f3f3 !important;
+            border: 1px solid #dcdcdc !important;
+        }
+</style>
+<script>
+    (function () {
+        let theme = localStorage.getItem("theme");
+        if (theme) {
+            if (theme === "LightTheme")
+                document.documentElement.setAttribute("data-bs-theme", "light");
+            else if (theme === "DarkTheme")
+                document.documentElement.setAttribute("data-bs-theme", "dark");
+            else
+                document.documentElement.setAttribute("data-bs-theme", "blue-theme");
+        }
+    })();
+</script>
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="blue-theme">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Expires" CONTENT="-1">
+    <title>@ViewData["Title"]</title>
+    @await RenderSectionAsync("styles", false)
+
+    <!-- jQuery 3 -->
+    <link rel="icon" href="~/assets/images/favicon-32x32.png" type="image/png" />
+   
+    <!--plugins-->
+    <link href="~/assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/assets/plugins/metismenu/metisMenu.min.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/plugins/metismenu/mm-vertical.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/plugins/simplebar/css/simplebar.css">
+    <link href="~/assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
+    <link href="/assets/plugins/input-tags/css/tagsinput.css" rel="stylesheet">
+
+    <!--bootstrap css-->
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!--main css-->
+    <link href="~/assets/css/bootstrap-extended.css" rel="stylesheet">
+    <link href="@Url.Content("~/assets/css/main.css")" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/assets/css/dark-theme.css")" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/assets/css/blue-theme.css")" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/assets/css/responsive.css")" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    <!-- SweetAlert2 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Log In page -->
+    <script src="~/assets/js/jquery.min.js"></script>
+           <script src="~/assets/html2pdf/html2pdf.bundle.js"></script>
+
+
+
+@*     <script>
+
+        let logoutWarningShown = false;
+
+        function checkSession() {
+            fetch('@Url.Page("/Index", "Sesion")')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "active") {
+                        const expirationTime = new Date(data.expiresAt).getTime();
+                        const currentTime = new Date().getTime();
+                        const timeLeft = expirationTime - currentTime;
+
+                        // if (timeLeft <= 5 * 60 * 1000 && !logoutWarningShown) {
+                        //     // Muestra advertencia 5 minutos antes
+                        //     alert("Tu sesión está por expirar. Guarda tu trabajo o renueva tu sesión.");
+                        //     logoutWarningShown = true;
+                        // }
+
+                    } else {
+                        // Si la sesión expiró, redirige
+                        alert("Tu sesión ha expirado. Serás redirigido al inicio de sesión.");
+                        window.location.href = '/Account/Login';
+                    }
+                })
+                .catch(error => console.error('Error verificando la sesión:', error));
+        }
+
+        // Verifica la sesión cada 30 segundos
+        setInterval(checkSession, 30000);
+    </script> *@
+
+    <!-- DataTables + Buttons -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.bootstrap5.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.0.3/pako.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+    <!-- Botones de exportación -->
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.colVis.min.js"></script>
+
+    <!-- Librerías auxiliares para exportar -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+</head>
+<body class="toggled">
+
+    <!--start header-->
+    <header class="top-header">
+        <nav class="navbar navbar-expand align-items-center gap-4">
+            <div class="btn-toggle">
+                <a href="javascript:;"><i class="material-icons-outlined">menu</i></a>
+            </div>
+            <div class="search-bar flex-grow-1">
+                <div class="position-relative">
+                   
+                    <div class="search-popup p-3">
+                        <div class="card rounded-4 overflow-hidden">
+                            <div class="card-header d-lg-none">
+                                <div class="position-relative">
+                                  
+                                </div>
+                            </div>
+                            <div class="card-body search-content">
+                                
+                            </div>
+                            <div class="card-footer text-center bg-transparent">
+                              
+                            </div>
+                            <div class="notify-list">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <ul class="navbar-nav gap-1 nav-right-links align-items-center">
+                <li class="nav-item">
+                    <a href="javascript:;"
+                       class="nav-link"
+                       data-bs-toggle="offcanvas"
+                       data-bs-target="#staticBackdrop">
+                        <i class="material-icons-outlined">tune</i>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="javascrpt:;" class="dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown">
+                        <img src="assets/images/avatars/11.png" class="rounded-circle p-1 border" width="45" height="45" alt="">
+                    </a>
+                    <div class="dropdown-menu dropdown-user dropdown-menu-end shadow">
+                        <a class="dropdown-item  gap-2 py-2" href="javascript:;">
+                            <div class="text-center">
+                                <img src="assets/images/avatars/11.png" class="rounded-circle p-1 shadow mb-3" width="90" height="90"
+                                     alt="">
+                                <h6 class="user-name mb-0 fw-bold">@(((ClaimsIdentity)User.Identity).Claims.Where(d => d.Type == ClaimTypes.Name).Select(s1 => s1.Value).FirstOrDefault())</h6>
+                            </div>
+                        </a>
+                        <hr class="dropdown-divider">
+
+
+                        @{
+                            if (!string.IsNullOrEmpty(Roles.Where(a => a == "2").FirstOrDefault()))
+                            {
+                                <a asp-page="/SeguridadRolesModulos/Index" class="dropdown-item d-flex align-items-center gap-2 py-2">
+                                    <i class="material-icons-outlined">
+                                        person_outline
+                                    </i>
+                                    <span> Roles </span>
+                                </a>
+                            }
+                        }
+                        <hr class="dropdown-divider">
+
+                        <form class="form-inline" asp-page="/Account/Logout" id="cerrarSesion" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                            <a class="dropdown-item d-flex align-items-center gap-2 py-2" onclick="document.getElementById('cerrarSesion').submit()">
+                                <i class="material-icons-outlined">power_settings_new</i>Cerrar Sesión
+                            </a>
+
+
+                        </form>
+
+
+
+                    </div>
+                </li>
+             
+            </ul>
+
+        </nav>
+  @*       <button class="btn btn-grd btn-grd-primary position-fixed bottom-0 end-0 m-3 d-flex align-items-center gap-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop">
+            <i class="material-icons-outlined">tune</i>Customize
+        </button> *@
+    </header>
+    <!--end top header-->
+    <!--**********************************
+           Sidebar start
+       ***********************************-->
+    <partial name="_NavbarPartial" />
+
+    <!--**********************************
+        Sidebar end
+    ***********************************-->
+    <!-- ======== main-wrapper start =========== -->
+
+
+
+    <main class="main-wrapper">
+
+
+
+        <!-- Top Bar Start -->
+        <div class="main-content">
+            <!-- Top Bar End -->
+            <!-- Page Content-->
+            @RenderBody()
+            @Html.Partial("Mensajes")
+
+
+
+        </div>
+
+    </main>
+    <!--start overlay-->
+    <div class="overlay btn-toggle">
+
+    </div>
+    <!--end overlay-->
+    <!--start footer-->
+
+    <footer class="page-footer">
+        <p class="mb-0"> Moto Repuestos Rojas | Developed By : Grupo 7. Todos los derechos reservados.</p>
+    </footer>
+
+    <!--top footer-->
+  
+
+    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="staticBackdrop">
+   @*      <div class="offcanvas-header border-bottom h-70">
+            <div class="">
+                <h5 class="mb-0">Theme Customizer</h5>
+                <p class="mb-0">Customize your theme</p>
+            </div>
+            <a href="javascript:;" class="primaery-menu-close" data-bs-dismiss="offcanvas">
+                <i class="material-icons-outlined">close</i>
+            </a>
+        </div> *@
+        <div class="offcanvas-body">
+            <div>
+                <p>Tema</p>
+
+                <div class="row g-3">
+                    <div class="col-12 col-xl-6">
+                        <input type="radio" class="btn-check" name="theme-options" id="BlueTheme" checked>
+                        <label class="btn btn-outline-secondary d-flex flex-column gap-1 align-items-center justify-content-center p-4" for="BlueTheme">
+                            <span class="material-icons-outlined">contactless</span>
+                            <span>Blue</span>
+                        </label>
+                    </div>
+                    <div class="col-12 col-xl-6">
+                        <input type="radio" class="btn-check" name="theme-options" id="LightTheme">
+                        <label class="btn btn-outline-secondary d-flex flex-column gap-1 align-items-center justify-content-center p-4" for="LightTheme">
+                            <span class="material-icons-outlined">light_mode</span>
+                            <span>Light</span>
+                        </label>
+                    </div>
+                    <div class="col-12 col-xl-6">
+                        <input type="radio" class="btn-check" name="theme-options" id="DarkTheme">
+                        <label class="btn btn-outline-secondary d-flex flex-column gap-1 align-items-center justify-content-center p-4" for="DarkTheme">
+                            <span class="material-icons-outlined">dark_mode</span>
+                            <span>Dark</span>
+                        </label>
+                    </div>
+            @*         <div class="col-12 col-xl-6">
+                        <input type="radio" class="btn-check" name="theme-options" id="SemiDarkTheme">
+                        <label class="btn btn-outline-secondary d-flex flex-column gap-1 align-items-center justify-content-center p-4" for="SemiDarkTheme">
+                            <span class="material-icons-outlined">contrast</span>
+                            <span>Semi Dark</span>
+                        </label>
+                    </div>
+                    <div class="col-12 col-xl-6">
+                        <input type="radio" class="btn-check" name="theme-options" id="BoderedTheme">
+                        <label class="btn btn-outline-secondary d-flex flex-column gap-1 align-items-center justify-content-center p-4" for="BoderedTheme">
+                            <span class="material-icons-outlined">border_style</span>
+                            <span>Bordered</span>
+                        </label>
+                    </div> *@
+                </div><!--end row-->
+
+            </div>
+        </div>
+    </div>
+    <!--start switcher-->
+    @RenderSection("Scripts", required: false)
+
+    <!-- ========= All Javascript files linkup ======== -->
+
+    <!-- Bootstrap JS -->
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+
+  
+
+ 
+
+    <!--plugins-->
+    <script src="/assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+    <script src="/assets/plugins/metismenu/metisMenu.min.js"></script>
+    <script src="/assets/plugins/input-tags/js/tagsinput.js"></script>
+    <script src="/assets/plugins/simplebar/js/simplebar.min.js"></script>
+
+    <script src="/assets/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <style>
+        /* ======== SELECT2 MODO OSCURO ======== */
+        .select2-container--default .select2-selection--single {
+            background-color: #0a0f1f !important; /* Fondo principal */
+            border: 1px solid #1e293b !important; /* Borde */
+            border-radius: 6px !important;
+            height: 38px !important;
+            box-shadow: none !important;
+        }
+
+            .select2-container--default .select2-selection--single .select2-selection__rendered {
+                color: #f1f5f9 !important; /* Texto blanco */
+                line-height: 36px !important;
+                padding-left: 10px !important;
+            }
+
+            .select2-container--default .select2-selection--single .select2-selection__arrow {
+                height: 36px !important;
+            }
+
+        .select2-dropdown {
+            background-color: #0f172a !important; /* Fondo del menú */
+            border: 1px solid #1e293b !important;
+        }
+
+        .select2-results__option {
+            background-color: #0f172a !important;
+            color: #f1f5f9 !important;
+        }
+
+        .select2-results__option--highlighted {
+            background-color: #1e40af !important; /* Azul al hover */
+            color: #fff !important;
+        }
+
+        .select2-selection__placeholder {
+            color: #94a3b8 !important; /* Placeholder gris claro */
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $('.datatable').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    { extend: 'copy', text: 'Copiar' },
+                    { extend: 'csv', text: 'CSV' },
+                    { extend: 'excel', text: 'Excel' },
+                    { extend: 'pdf', text: 'PDF' },
+                    { extend: 'print', text: 'Imprimir' },
+                    { extend: 'colvis', text: 'Columnas' }
+                ],
+                lengthMenu: [5, 10, 25, 50],
+                pageLength: 10,
+                language: {
+                    search: "Buscar:",
+                    lengthMenu: "Mostrar _MENU_ registros",
+                    info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                    paginate: {
+                        first: "Primero",
+                        last: "Último",
+                        next: "Siguiente",
+                        previous: "Anterior"
+                    },
+                    zeroRecords: "No se encontraron resultados",
+                    infoEmpty: "No hay registros disponibles",
+                    infoFiltered: "(filtrado de _MAX_ registros totales)"
+                }
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            setTimeout(function () {
+
+                // 🔥 prueba estas (una de estas es la correcta en tu template)
+                document.body.classList.add("toggled");
+                document.querySelector(".wrapper")?.classList.add("toggled");
+
+            }, 200);
+
+        });</script>
+    <script>
+        $(document).ready(function () {
+
+            let temaGuardado = localStorage.getItem("theme");
+
+            if (temaGuardado) {
+
+                aplicarTema(temaGuardado);
+
+                // 🔥 MARCAR EL RADIO CORRECTO
+                $('#' + temaGuardado).prop('checked', true);
+            }
+
+            // 🔥 cuando cambian el tema
+            $('input[name="theme-options"]').on('change', function () {
+
+                let theme = $(this).attr('id');
+
+                localStorage.setItem("theme", theme);
+
+                aplicarTema(theme);
+            });
+
+        });
+
+        function aplicarTema(theme) {
+            if (theme === "LightTheme") {
+                document.documentElement.setAttribute("data-bs-theme", "light");
+            }
+            else if (theme === "DarkTheme") {
+                document.documentElement.setAttribute("data-bs-theme", "dark");
+            }
+            else {
+                document.documentElement.setAttribute("data-bs-theme", "blue-theme");
+            }
+        }
+    </script>
+</body>
+
+
+
+</html>

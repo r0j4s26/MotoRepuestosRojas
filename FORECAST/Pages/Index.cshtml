@@ -1,0 +1,135 @@
+﻿
+@page
+@using Newtonsoft.Json
+@using System.Globalization;
+@using Microsoft.AspNetCore.Http
+@using System;
+@using System.Collections.Generic;
+@using System.IO;
+@using System.Linq;
+@using System.Security.Claims;
+@using System.Threading.Tasks;
+@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.AspNetCore.Mvc.RazorPages;
+@using Microsoft.Extensions.Configuration;
+@using Refit;
+@inject IHttpContextAccessor httpContextAccessor
+@{
+    ViewData["Sidebar"] = "toggled";
+}
+@using System.Globalization;
+@{
+	NumberFormatInfo formato = new CultureInfo("es-CR").NumberFormat;
+	formato.CurrencyGroupSeparator = ",";
+	formato.NumberDecimalSeparator = ".";
+
+
+
+}
+<script>
+    function actualizarBanner(theme) {
+        let banner = document.getElementById("bannerRFS");
+        if (!banner) return;
+
+        if (theme === "LightTheme") {
+            banner.src = "/img/RFS-light.jpg";
+        } else {
+            banner.src = "/img/RFS-dark.jpg";
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        let temaGuardado = localStorage.getItem("theme");
+
+        if (temaGuardado) {
+            actualizarBanner(temaGuardado);
+        }
+
+    });
+</script>
+@section styles{
+	<style>
+        /* 🔥 Quita espacios del layout */
+        .content-wrapper,
+        .content,
+        .container,
+        .container-fluid,
+        .main-content,
+        .wrapper {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        /* 🔥 Contenedor del banner */
+        .rfs-container {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 🔥 Imagen bien adaptada */
+        .rfs-banner {
+            width: 100%;
+            height: auto; /* 👈 CLAVE para que no se corte */
+            display: block;
+        }
+
+        /* 🔥 Ajuste fino para pegar al header */
+        .rfs-container {
+            margin-top: -10px; /* ajusta si quieres más pegado */
+        }
+	</style>
+}
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            setTimeout(function () {
+
+                // 🔥 prueba estas (una de estas es la correcta en tu template)
+                document.body.classList.add("toggled");
+                document.querySelector(".wrapper")?.classList.add("toggled");
+
+            }, 200);
+
+        });
+        function actualizarBanner(theme) {
+            let banner = document.getElementById("bannerRFS");
+            if (!banner) return;
+
+            if (theme === "LightTheme") {
+                banner.src = "/img/LOCAL.jpeg";
+            } else {
+                banner.src = "/img/LOCAL.jpeg";
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            let temaGuardado = localStorage.getItem("theme");
+
+            if (temaGuardado) {
+                actualizarBanner(temaGuardado);
+            }
+
+            // 🔥 ESCUCHAR CAMBIO EN TIEMPO REAL
+            document.querySelectorAll('input[name="theme-options"]').forEach(el => {
+                el.addEventListener("change", function () {
+                    let theme = this.id;
+                    actualizarBanner(theme);
+                });
+            });
+
+        });
+    </script>
+}
+@model IndexModel
+@{
+    ViewData["Title"] = "Inicio";
+}
+<center>
+    <div class="rfs-container">
+        <img id="bannerRFS" src="~/img/LOCAL.jpeg" class="rfs-banner" />
+    </div>
+</center>

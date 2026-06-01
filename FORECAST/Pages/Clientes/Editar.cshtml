@@ -1,0 +1,405 @@
+﻿@page "{id}"
+@model FORECAST.Pages.Clientes.EditarModel
+@{
+    ViewData["Title"] = "Editar Clientes";
+}
+@using System.Globalization;
+@using Newtonsoft.Json;
+
+@section styles {
+}
+
+@section scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function () {
+            $('.select2').select2();
+            Recuperar();
+        });
+
+        var Cantones = [];
+        var Distritos = [];
+        var Barrios = [];
+
+        function Recuperar() {
+            try {
+                Cantones = JSON.parse($("#Cantones").val());
+                Distritos = JSON.parse($("#Distritos").val());
+                Barrios = JSON.parse($("#Barrios").val());
+
+                ModificaSelects(0);
+                maskCedula();
+            } catch (e) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Ha ocurrido un error al intentar agregar ' + e
+                });
+            }
+        }
+
+        function ModificaSelects(i) {
+            try {
+                var codProvincia = parseInt($("#selectP").val());
+                var codCanton = parseInt($("#selectC").val());
+                var codDistrito = parseInt($("#selectD").val());
+
+                if (i == 0 || i == 1) {
+                    RellenaCantones(Cantones.filter(a => a.CodProvincia == codProvincia));
+                    codCanton = parseInt($("#selectC").val());
+                    RellenaDistritos(Distritos.filter(a => a.CodProvincia == codProvincia && a.CodCanton == codCanton));
+                    codDistrito = parseInt($("#selectD").val());
+                    RellenaBarrios(Barrios.filter(a => a.CodProvincia == codProvincia && a.CodCanton == codCanton && a.CodDistrito == codDistrito));
+                }
+
+                if (i == 2) {
+                    RellenaDistritos(Distritos.filter(a => a.CodProvincia == codProvincia && a.CodCanton == codCanton));
+                    codDistrito = parseInt($("#selectD").val());
+                    RellenaBarrios(Barrios.filter(a => a.CodProvincia == codProvincia && a.CodCanton == codCanton && a.CodDistrito == codDistrito));
+                }
+
+                if (i == 3) {
+                    RellenaBarrios(Barrios.filter(a => a.CodProvincia == codProvincia && a.CodCanton == codCanton && a.CodDistrito == codDistrito));
+                }
+            } catch (e) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Ha ocurrido un error al intentar agregar ' + e
+                });
+            }
+        }
+
+        function RellenaCantones(ListCantones) {
+            try {
+                var sOptions = '';
+
+                $("#selectC").html('');
+
+                for (var i = 0; i < ListCantones.length; i++) {
+                    sOptions += '<option value="' + ListCantones[i].CodCanton + '">' + ListCantones[i].NomCanton + '</option>';
+                }
+
+                $("#selectC").html(sOptions);
+            } catch (e) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Ha ocurrido un error al intentar agregar ' + e
+                });
+            }
+        }
+
+        function RellenaDistritos(ListDistritos) {
+            try {
+                var sOptions = '';
+
+                $("#selectD").html('');
+
+                for (var i = 0; i < ListDistritos.length; i++) {
+                    sOptions += '<option value="' + ListDistritos[i].CodDistrito + '">' + ListDistritos[i].NomDistrito + '</option>';
+                }
+
+                $("#selectD").html(sOptions);
+            } catch (e) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Ha ocurrido un error al intentar agregar ' + e
+                });
+            }
+        }
+
+        function RellenaBarrios(ListBarrios) {
+            try {
+                var sOptions = '';
+
+                $("#selectB").html('');
+
+                for (var i = 0; i < ListBarrios.length; i++) {
+                    sOptions += '<option value="' + ListBarrios[i].CodBarrio + '">' + ListBarrios[i].NomBarrio + '</option>';
+                }
+
+                $("#selectB").html(sOptions);
+            } catch (e) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Ha ocurrido un error al intentar agregar ' + e
+                });
+            }
+        }
+
+        function BuscarCliente() {
+            try {
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'json',
+                    url: 'https://api.hacienda.go.cr/fe/ae?identificacion=' + $("#CedulaCliente").val() + '&key=gkUkysPxCKUYWZS',
+                    data: {},
+                    success: function (result) {
+                        console.log(result);
+
+                        if (result.nombre != undefined) {
+                            $("#NombreCliente").val(result.nombre);
+                            $("#selectTP").val(result.tipoIdentificacion);
+                            $("#NombreCliente").attr("readonly", "readonly");
+                        } else {
+                            $("#NombreCliente").removeAttr("readonly");
+                        }
+                    }
+                });
+            } catch (e) {
+                console.log(e);
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Ha ocurrido un error al intentar buscar el cliente ' + e
+                });
+            }
+        }
+
+        function maskCedula() {
+            $("#Telefono").mask("9999-9999");
+
+            var TC = $("#selectTP").val();
+
+            switch (TC) {
+                case "01":
+                    $("#CedulaCliente").mask("999999999");
+                    break;
+
+                case "02":
+                    $("#CedulaCliente").mask("9999999999");
+                    break;
+
+                case "03":
+                    $("#CedulaCliente").unmask();
+                    $("#CedulaCliente").attr("maxlength", "12");
+                    break;
+
+                case "04":
+                    $("#CedulaCliente").unmask();
+                    $("#CedulaCliente").attr("maxlength", "10");
+                    break;
+            }
+        }
+
+        function validarCedula() {
+            var TC = $("#selectTP").val();
+
+            switch (TC) {
+                case "01":
+                    if ($("#CedulaCliente").val().length < 9) {
+                        $("#CedulaCliente").focus();
+                        $("#CedulaCliente").select();
+                    }
+                    break;
+
+                case "02":
+                    if ($("#CedulaCliente").val().length < 10) {
+                        $("#CedulaCliente").focus();
+                        $("#CedulaCliente").select();
+                    }
+                    break;
+            }
+        }
+    </script>
+}
+
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="breadcrumb-title pe-3">Clientes</div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item">
+                    <a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Editar Cliente</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="ms-auto">
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="card-title">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h4 class="mb-0">Editar Cliente</h4>
+                </div>
+                <div class="col-sm-6">
+                    <a asp-page="./Index" class="btn btn-outline-light btn-sm float-end me-3" style="text-decoration: underline;">
+                        Regresar
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+
+        <form method="post" id="formTipos" role="form" novalidate class="needs-validation" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input hidden asp-for="Cliente.id" />
+
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="selectTP" class="form-label">Tipo de Cédula</label>
+                        <div class="input-group">
+                            <select id="selectTP" class="form-control single-select select2" asp-for="Cliente.TipoCedula" onchange="javascript: maskCedula();" required>
+                                <option value="01">Nacional</option>
+                                <option value="02">Jurídica</option>
+                                <option value="03">DIMEX</option>
+                                <option value="04">NITE</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="CedulaCliente" class="form-label">
+                            Cédula <span class="text-danger">* Sin guiones, sin espacios y con 0's</span>
+                        </label>
+                        <div class="input-group">
+                            <input type="text"
+                                   id="CedulaCliente"
+                                   asp-for="Cliente.Cedula"
+                                   class="form-control border-start-0"
+                                   required
+                                   maxlength="12"
+                                   onblur="javascript: validarCedula(); BuscarCliente();">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="NombreCliente" class="form-label">Nombre</label>
+                        <div class="input-group">
+                            <input type="text" id="NombreCliente" asp-for="Cliente.Nombre" class="form-control border-start-0" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Correo" class="form-label">Correo</label>
+                        <div class="input-group">
+                            <input type="email" id="Correo" asp-for="Cliente.Email" class="form-control border-start-0" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Telefono" class="form-label">Teléfono</label>
+                        <div class="input-group">
+                            <input type="text" id="Telefono" asp-for="Cliente.Telefono" class="form-control border-start-0" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="selectP" class="form-label">Provincia</label>
+                        <div class="input-group">
+                            <select id="selectP" class="form-control single-select select2" asp-for="Cliente.Provincia" onchange="javascript: ModificaSelects(1)" required>
+                                <option value="1">San José</option>
+                                <option value="2">Alajuela</option>
+                                <option value="3">Cartago</option>
+                                <option value="4">Heredia</option>
+                                <option value="5">Guanacaste</option>
+                                <option value="6">Puntarenas</option>
+                                <option value="7">Limón</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="selectC" class="form-label">Cantón</label>
+                        <div class="input-group">
+                            <select id="selectC" class="form-control single-select select2" asp-for="Cliente.Canton" onchange="javascript: ModificaSelects(2)" required>
+                                @foreach (var item in Model.Cantones)
+                                {
+                                    <option value="@item.CodCanton">@item.NomCanton</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="selectD" class="form-label">Distrito</label>
+                        <div class="input-group">
+                            <select id="selectD" class="form-control single-select select2" asp-for="Cliente.Distrito" onchange="javascript: ModificaSelects(3)" required>
+                                @foreach (var item in Model.Distritos)
+                                {
+                                    <option value="@item.CodDistrito">@item.NomDistrito</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="selectB" class="form-label">Barrio</label>
+                        <div class="input-group">
+                            <select id="selectB" class="form-control single-select select2" asp-for="Cliente.Barrio" required>
+                                @foreach (var item in Model.Barrios)
+                                {
+                                    <option value="@item.CodBarrio">@item.NomBarrio</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Direccion" class="form-label">Dirección</label>
+                        <div class="input-group">
+                            <input type="text" id="Direccion" asp-for="Cliente.Sennas" class="form-control border-start-0" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="CondicionPago" class="form-label">Condición de Pago</label>
+                        <div class="input-group">
+                            <select id="CondicionPago" class="form-control single-select select2" asp-for="Cliente.idCondicionPago" required>
+                                @foreach (var item in Model.Condiciones)
+                                {
+                                    <option value="@item.id">@item.Nombre</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <button type="submit" id="Guardar" class="btn btn-rounded btn-outline-success px-5">
+                        Guardar
+                    </button>
+                </div>
+            </div>
+
+            <input hidden id="Cantones" value="@JsonConvert.SerializeObject(Model.Cantones)" />
+            <input hidden id="Distritos" value="@JsonConvert.SerializeObject(Model.Distritos)" />
+            <input hidden id="Barrios" value="@JsonConvert.SerializeObject(Model.Barrios)" />
+        </form>
+    </div>
+</div>

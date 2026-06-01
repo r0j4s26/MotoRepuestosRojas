@@ -1,0 +1,32 @@
+[core]
+	repositoryformatversion = 0
+	filemode = false
+	bare = false
+	logallrefupdates = true
+	symlinks = false
+	ignorecase = true
+[submodule]
+	active = .
+[remote "origin"]
+	url = https://github.com/Amvac/RFS.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "develop"]
+	remote = origin
+	merge = refs/heads/develop
+[lfs]
+	repositoryformatversion = 0
+[branch "feature/IHD-1846-transfer-repository"]
+	remote = origin
+	merge = refs/heads/feature/IHD-1846-transfer-repository
+[branch "production"]
+	remote = origin
+	merge = refs/heads/production
+[branch "bugfix/IHD-3167"]
+	remote = origin
+	merge = refs/heads/bugfix/IHD-3167
+[branch "staging"]
+	remote = origin
+	merge = refs/heads/staging
+[branch "bugfix/IHD-3630-RFS-Feedback"]
+	remote = origin
+	merge = refs/heads/bugfix/IHD-3630-RFS-Feedback

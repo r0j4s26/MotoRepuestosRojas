@@ -1,0 +1,190 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|c:\\users\\steven rodriguez\\documents\\repositorios d\u0026d\\motorepuestosrojas\\forecast\\pages\\ofertas\\nuevo.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|solutionrelative:forecast\\pages\\ofertas\\nuevo.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|c:\\users\\steven rodriguez\\documents\\repositorios d\u0026d\\motorepuestosrojas\\forecast\\pages\\ofertas\\nuevo.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|solutionrelative:forecast\\pages\\ofertas\\nuevo.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|c:\\users\\steven rodriguez\\documents\\repositorios d\u0026d\\motorepuestosrojas\\forecast\\wwwroot\\js\\ofertas\\nuevooferta.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|solutionrelative:forecast\\wwwroot\\js\\ofertas\\nuevooferta.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|c:\\users\\steven rodriguez\\documents\\repositorios d\u0026d\\motorepuestosrojas\\forecast\\pages\\usuarios\\editar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|solutionrelative:forecast\\pages\\usuarios\\editar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|c:\\users\\steven rodriguez\\documents\\repositorios d\u0026d\\motorepuestosrojas\\forecast\\pages\\ofertas\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|solutionrelative:forecast\\pages\\ofertas\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|c:\\users\\steven rodriguez\\documents\\repositorios d\u0026d\\motorepuestosrojas\\forecast\\pages\\ofertas\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|solutionrelative:forecast\\pages\\ofertas\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|c:\\users\\steven rodriguez\\documents\\repositorios d\u0026d\\motorepuestosrojas\\forecast\\models\\parametrosfiltros.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|solutionrelative:forecast\\models\\parametrosfiltros.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|c:\\users\\steven rodriguez\\documents\\repositorios d\u0026d\\motorepuestosrojas\\forecast\\startup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|solutionrelative:forecast\\startup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|c:\\users\\steven rodriguez\\documents\\repositorios d\u0026d\\motorepuestosrojas\\forecast\\models\\ofertasviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|solutionrelative:forecast\\models\\ofertasviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|c:\\users\\steven rodriguez\\documents\\repositorios d\u0026d\\motorepuestosrojas\\forecast\\models\\detofertaviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|solutionrelative:forecast\\models\\detofertaviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Editar.cshtml",
+              "DocumentMoniker": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Pages\\Usuarios\\Editar.cshtml",
+              "RelativeDocumentMoniker": "FORECAST\\Pages\\Usuarios\\Editar.cshtml",
+              "ToolTip": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Pages\\Usuarios\\Editar.cshtml",
+              "RelativeToolTip": "FORECAST\\Pages\\Usuarios\\Editar.cshtml",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAAB8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-31T21:39:03.505Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "NuevoOferta.js",
+              "DocumentMoniker": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\wwwroot\\js\\Ofertas\\NuevoOferta.js",
+              "RelativeDocumentMoniker": "FORECAST\\wwwroot\\js\\Ofertas\\NuevoOferta.js",
+              "ToolTip": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\wwwroot\\js\\Ofertas\\NuevoOferta.js",
+              "RelativeToolTip": "FORECAST\\wwwroot\\js\\Ofertas\\NuevoOferta.js",
+              "ViewState": "AgIAABIAAAAAAAAAAAAYwAsAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-05-31T21:01:22.204Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Nuevo.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Pages\\Ofertas\\Nuevo.cshtml.cs",
+              "RelativeDocumentMoniker": "FORECAST\\Pages\\Ofertas\\Nuevo.cshtml.cs",
+              "ToolTip": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Pages\\Ofertas\\Nuevo.cshtml.cs",
+              "RelativeToolTip": "FORECAST\\Pages\\Ofertas\\Nuevo.cshtml.cs",
+              "ViewState": "AgIAAJcAAAAAAAAAAAAuwNAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-31T20:57:49.443Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Nuevo.cshtml",
+              "DocumentMoniker": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Pages\\Ofertas\\Nuevo.cshtml",
+              "RelativeDocumentMoniker": "FORECAST\\Pages\\Ofertas\\Nuevo.cshtml",
+              "ToolTip": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Pages\\Ofertas\\Nuevo.cshtml",
+              "RelativeToolTip": "FORECAST\\Pages\\Ofertas\\Nuevo.cshtml",
+              "ViewState": "AgIAABkBAAAAAAAAAAAjwC0BAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-31T20:57:24.26Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ParametrosFiltros.cs",
+              "DocumentMoniker": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Models\\ParametrosFiltros.cs",
+              "RelativeDocumentMoniker": "FORECAST\\Models\\ParametrosFiltros.cs",
+              "ToolTip": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Models\\ParametrosFiltros.cs",
+              "RelativeToolTip": "FORECAST\\Models\\ParametrosFiltros.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAkwBcAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-31T20:54:12.365Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Index.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Pages\\Ofertas\\Index.cshtml.cs",
+              "RelativeDocumentMoniker": "FORECAST\\Pages\\Ofertas\\Index.cshtml.cs",
+              "ToolTip": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Pages\\Ofertas\\Index.cshtml.cs",
+              "RelativeToolTip": "FORECAST\\Pages\\Ofertas\\Index.cshtml.cs",
+              "ViewState": "AgIAAC4AAAAAAAAAAAAewD0AAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-31T20:52:57.281Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Pages\\Ofertas\\Index.cshtml",
+              "RelativeDocumentMoniker": "FORECAST\\Pages\\Ofertas\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Pages\\Ofertas\\Index.cshtml",
+              "RelativeToolTip": "FORECAST\\Pages\\Ofertas\\Index.cshtml",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAlwBkAAABIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-31T20:52:54.377Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Startup.cs",
+              "DocumentMoniker": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Startup.cs",
+              "RelativeDocumentMoniker": "FORECAST\\Startup.cs",
+              "ToolTip": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Startup.cs",
+              "RelativeToolTip": "FORECAST\\Startup.cs",
+              "ViewState": "AgIAALwAAAAAAAAAAAAswNIAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-31T20:52:16.622Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "OfertasViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Models\\OfertasViewModel.cs",
+              "RelativeDocumentMoniker": "FORECAST\\Models\\OfertasViewModel.cs",
+              "ToolTip": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Models\\OfertasViewModel.cs",
+              "RelativeToolTip": "FORECAST\\Models\\OfertasViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-31T20:52:00.682Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "DetOfertaViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Models\\DetOfertaViewModel.cs",
+              "RelativeDocumentMoniker": "FORECAST\\Models\\DetOfertaViewModel.cs",
+              "ToolTip": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Models\\DetOfertaViewModel.cs",
+              "RelativeToolTip": "FORECAST\\Models\\DetOfertaViewModel.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAowA0AAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-31T20:50:47.778Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

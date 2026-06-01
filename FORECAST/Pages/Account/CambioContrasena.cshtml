@@ -1,0 +1,208 @@
+﻿@page
+@model FORECAST.Pages.Account.CambioContrasenaModel
+@{
+    Layout = null;
+    ViewData["Title"] = "Cambio de Contraseña";
+}
+
+<!doctype html>
+<html lang="es" data-bs-theme="dark">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cambio de Contraseña</title>
+
+    <link rel="icon" type="image/png" href="~/images/icons/favicon.ico" />
+
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/assets/css/bootstrap-extended.css" rel="stylesheet" />
+    <link href="~/sass/main.css" rel="stylesheet" />
+    <link href="~/sass/dark-theme.css" rel="stylesheet" />
+    <link href="~/sass/responsive.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.5/dist/sweetalert2.all.min.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center p-4">
+        <div class="row w-100 justify-content-center">
+            <div class="col-12 col-md-10 col-lg-7 col-xl-5">
+
+                <div class="card rounded-4">
+                    <div class="card-body p-4 p-lg-5">
+
+                        <div class="text-center mb-4">
+                            <h4 class="mb-1">Cambio de Contraseña</h4>
+                            <p class="mb-0 text-secondary">Actualice sus credenciales de acceso</p>
+                        </div>
+
+                        <form method="post" id="formTipos" role="form" novalidate class="needs-validation" enctype="multipart/form-data">
+                            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                            <div class="row g-3">
+
+                                <div class="col-12">
+                                    <label for="clave" class="form-label">Nueva Contraseña</label>
+                                    <div class="input-group">
+                                        <input asp-for="Input.Clave"
+                                               id="clave"
+                                               type="password"
+                                               placeholder="Digite su nueva contraseña"
+                                               onchange="javascript: RevisaContraseña()"
+                                               class="form-control border-start-0" />
+                                    </div>
+                                    <span style="display:none;" id="ErrorClave" class="text-danger small"></span>
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="cClave" class="form-label">Confirmar Contraseña</label>
+                                    <div class="input-group">
+                                        <input type="password"
+                                               id="cClave"
+                                               placeholder="Confirme la contraseña"
+                                               onchange="javascript: RevisaConfirmacionContraseña()"
+                                               class="form-control border-start-0" />
+                                    </div>
+                                    <span style="display:none;" id="ErrorConfirmacionClave" class="text-danger small"></span>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="alert alert-border-warning alert-dismissible fade show mb-0" role="alert">
+                                        <div class="d-flex align-items-start gap-2">
+                                            <div>
+                                                <h6 class="mb-1 text-warning">Requisitos de seguridad</h6>
+                                                <ul class="mb-0 ps-3 small">
+                                                    <li>Mínimo 8 caracteres</li>
+                                                    <li>Mínimo 1 letra mayúscula</li>
+                                                    <li>Mínimo 1 letra minúscula</li>
+                                                    <li>Mínimo 1 número</li>
+                                                    <li>Mínimo 1 carácter especial</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 d-flex justify-content-end mt-3">
+                                    <button type="submit" id="Guardar" class="btn btn-outline-success px-5">
+                                        Guardar Cambios
+                                    </button>
+                                </div>
+
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="~/assets/js/jquery.min.js"></script>
+    <script src="~/assets/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        var btn = document.getElementById('Guardar');
+
+        $(document).ready(function () {
+            btn.disabled = true;
+        });
+
+        function esMayuscula(letra) {
+            return letra === letra.toUpperCase();
+        }
+
+        function esMinuscula(letra) {
+            return letra === letra.toLowerCase();
+        }
+
+        function verificaMayusculas(palabra) {
+            var i = 0;
+            for (var index = 0; index < palabra.length; index++) {
+                var letraActual = palabra.charAt(index);
+                if (isNaN(letraActual)) {
+                    if (tiene_caracteres(letraActual) == 0) {
+                        if (esMayuscula(letraActual)) i++;
+                    }
+                }
+            }
+            return i;
+        }
+
+        function verificaMinisculas(palabra) {
+            var i = 0;
+            for (var index = 0; index < palabra.length; index++) {
+                var letraActual = palabra.charAt(index);
+                if (isNaN(letraActual)) {
+                    if (tiene_caracteres(letraActual) == 0) {
+                        if (esMinuscula(letraActual)) i++;
+                    }
+                }
+            }
+            return i;
+        }
+
+        function tiene_caracteres(texto) {
+            var caracteres = "!#$%^&*";
+            for (var i = 0; i < texto.length; i++) {
+                if (caracteres.indexOf(texto.charAt(i)) != -1) {
+                    return 1;
+                }
+            }
+            return 0;
+        }
+
+        function son_iguales(texto1, texto2) {
+            return texto1 === texto2 ? 1 : 0;
+        }
+
+        function tiene_numeros(texto) {
+            var numeros = "0123456789";
+            for (var i = 0; i < texto.length; i++) {
+                if (numeros.indexOf(texto.charAt(i)) != -1) {
+                    return 1;
+                }
+            }
+            return 0;
+        }
+
+        function RevisaContraseña() {
+            if (tiene_numeros($("#clave").val()) == 0) {
+                $("#ErrorClave").show().text("La contraseña debe contener letras y números");
+                btn.disabled = true;
+            } else if ($("#clave").val().length < 8) {
+                $("#ErrorClave").show().text("La contraseña debe tener una longitud mayor a 8 caracteres");
+                btn.disabled = true;
+            } else if (verificaMayusculas($("#clave").val()) == 0) {
+                $("#ErrorClave").show().text("La contraseña debe tener mayúsculas");
+                btn.disabled = true;
+            } else if (verificaMinisculas($("#clave").val()) == 0) {
+                $("#ErrorClave").show().text("La contraseña debe tener minúsculas");
+                btn.disabled = true;
+            } else if (tiene_caracteres($("#clave").val()) == 0) {
+                $("#ErrorClave").show().text("La contraseña debe contener al menos un carácter especial");
+                btn.disabled = true;
+            } else {
+                $("#ErrorClave").hide();
+            }
+
+            RevisaConfirmacionContraseña();
+        }
+
+        function RevisaConfirmacionContraseña() {
+            if (son_iguales($("#clave").val(), $("#cClave").val()) == 0) {
+                $("#ErrorConfirmacionClave").show().text("Las contraseñas no coinciden");
+                btn.disabled = true;
+            } else {
+                $("#ErrorConfirmacionClave").hide();
+
+                if ($("#ErrorClave").is(":hidden")) {
+                    btn.disabled = false;
+                }
+            }
+        }
+    </script>
+</body>
+</html>

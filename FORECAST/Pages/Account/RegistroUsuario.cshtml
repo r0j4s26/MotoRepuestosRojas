@@ -1,0 +1,427 @@
+﻿@page
+@model Sicsoft.CostaRica.Checkin.Web.Pages.Account.RegistroUsuarioModel
+@{
+    ViewData["Title"] = "Insertar Usuario";
+}
+@using System.Globalization;
+@using Microsoft.AspNetCore.Http
+@using System;
+@using System.Collections.Generic;
+@using System.IO;
+@using System.Linq;
+@using System.Security.Claims;
+@using System.Threading.Tasks;
+@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.AspNetCore.Mvc.RazorPages;
+@using Microsoft.Extensions.Configuration;
+@using Refit;
+@inject IHttpContextAccessor httpContextAccessor
+@{
+    var Roles = ((ClaimsIdentity)User.Identity).Claims.Where(d => d.Type == "Roles").Select(s1 => s1.Value).FirstOrDefault().Split("|");
+}
+@section styles {
+
+
+}
+@section scripts {
+    <script>
+
+        $(document).ready(function () {
+
+
+            $('.select2').select2();
+
+        });
+
+
+    </script>
+    <script>
+        var btn = document.getElementById('Guardar');
+        $(document).ready(function () {
+            btn.disabled = true;
+
+        });
+        function esMayuscula(letra) {
+            return letra === letra.toUpperCase();
+        }
+
+        function esMinuscula(letra) {
+            return letra === letra.toLowerCase();
+        }
+
+        function verificaMayusculas(palabra) {
+            var i = 0;
+            for (var index = 0; index < palabra.length; index++) {
+                var letraActual = palabra.charAt(index);
+                if (isNaN(letraActual)) {
+                    if (tiene_caracteres(letraActual) == 0) {
+
+                        if (esMayuscula(letraActual)) {
+                            i++;
+                        }
+                    }
+                }
+
+
+
+            }
+
+            return i;
+
+        }
+
+
+        function verificaMinisculas(palabra) {
+            var i = 0;
+            for (var index = 0; index < palabra.length; index++) {
+                var letraActual = palabra.charAt(index);
+                if (isNaN(letraActual)) {
+                    if (tiene_caracteres(letraActual) == 0) {
+
+                        if (esMinuscula(letraActual)) {
+                            i++;
+                        }
+                    }
+
+                }
+
+
+            }
+
+            return i;
+
+        }
+
+        function tiene_caracteres(texto) {
+            var regularExpression = "@@/^(?=.*[])(?=.*[!#$%^&*])[-!#$%^&*]{,}$/";
+            for (i = 0; i < texto.length; i++) {
+                if (regularExpression.indexOf(texto.charAt(i), 0) != -1) {
+                    return 1;
+                }
+            }
+            return 0;
+        }
+
+        function son_iguales(texto1, texto2) {
+            if (texto1 === texto2) {
+                return 1;
+            } else {
+                console.log(texto1 + " " + texto2);
+                return 0;
+
+            }
+        }
+
+        function tiene_numeros(texto) {
+            var numeros = "0123456789";
+            for (i = 0; i < texto.length; i++) {
+                if (numeros.indexOf(texto.charAt(i), 0) != -1) {
+                    return 1;
+                }
+            }
+            return 0;
+        }
+        //Revisa las contraseñas
+
+        function RevisaContraseña() {
+
+            if (tiene_numeros($("#clave").val()) == 0) {
+                var x = document.getElementById("ErrorClave");
+                x.style.display = "block";
+                $("#ErrorClave").text("La contraseña debe contener letras y numeros");
+                btn.disabled = true;
+
+            } else if ($("#clave").val().length < 8) {
+                var x = document.getElementById("ErrorClave");
+                x.style.display = "block";
+                $("#ErrorClave").text("La contraseña debe tener una longitud mayor a 8 caracteres");
+                btn.disabled = true;
+            } else if (verificaMayusculas($("#clave").val()) == 0) {
+
+                var x = document.getElementById("ErrorClave");
+                x.style.display = "block";
+                $("#ErrorClave").text("La contraseña debe tener mayúsculas");
+                btn.disabled = true;
+            }
+            else if (verificaMinisculas($("#clave").val()) == 0) {
+                var x = document.getElementById("ErrorClave");
+                x.style.display = "block";
+                $("#ErrorClave").text("La contraseña debe tener minúsculas");
+                btn.disabled = true;
+            }
+
+            else {
+                var x = document.getElementById("ErrorClave");
+                x.style.display = "none";
+
+                if (tiene_caracteres($("#clave").val()) == 0) {
+                    console.log("No  tiene");
+                    var x = document.getElementById("ErrorClave");
+                    x.style.display = "block";
+                    $("#ErrorClave").text("La contraseña debe contener al menos un caracter especial");
+                    btn.disabled = true;
+                } else {
+                    console.log("Si tiene");
+                    var x = document.getElementById("ErrorClave");
+                    x.style.display = "none";
+                    // btn.disabled = false;
+
+
+                }
+            }
+
+            RevisaConfirmacionContraseña();
+
+
+
+        }
+
+        function RevisaConfirmacionContraseña() {
+            if (son_iguales($("#clave").val(), $("#cClave").val()) == 0) {
+                console.log(" son distintos");
+                var x = document.getElementById("ErrorConfirmacionClave");
+                x.style.display = "block";
+                $("#ErrorConfirmacionClave").text("Las contraseñas no coinciden");
+                btn.disabled = true;
+            } else {
+                console.log("No son iguales");
+                var x = document.getElementById("ErrorConfirmacionClave");
+                x.style.display = "none";
+                btn.disabled = false;
+            }
+
+
+        }
+
+        var ImageBae64 = '';
+
+        var fileUploadPrincipal = document.getElementById('imgPrincipalUploadG');
+        fileUploadPrincipal.onchange = async function (e) {
+
+            await readFilePrincipalP(e.srcElement);
+            // idF = setInterval(cancelar(e), 2000);
+
+            var idF = setInterval(async function () {
+
+                if (ImageBae64 != "data:," && $("#base64").val() != "data:,") {
+                    //alert("Imagen agregada con éxito");
+                    clearInterval(idF);
+                } else {
+                    await readFilePrincipalP(e.srcElement);
+                }
+            }, 1500);
+
+
+
+        }
+        async function readFilePrincipalP(input) {
+
+            if (input.files && input.files[0]) {
+                /*const maxAllowSize = 512000;*/
+                //const maxAllowSize = 2800000;
+                const maxAllowSize = 5000000;
+                if (input.files[0].size > maxAllowSize) {
+                    alert("Esta imagen es muy pesada");
+                    input.value = '';
+                } else {
+                    var reader = new FileReader();
+                    var img = document.createElement("img");
+                    var canvas = document.createElement('canvas');
+
+                    reader.onload = function (e) {
+                        img.src = e.target.result;
+                        var ctx = canvas.getContext("2d");
+                        ctx.drawImage(img, 0, 0);
+
+                        var MAX_WIDTH = 800;
+                        var MAX_HEIGHT = 600;
+                        var width = img.width;
+                        var height = img.height;
+
+                        if (width > height) {
+                            if (width > MAX_WIDTH) {
+                                height *= MAX_WIDTH / width;
+                                width = MAX_WIDTH;
+                            }
+                        } else {
+                            if (height > MAX_HEIGHT) {
+                                width *= MAX_HEIGHT / height;
+                                height = MAX_HEIGHT;
+                            }
+                        }
+                        canvas.width = width;
+                        canvas.height = height;
+                        var ctx = canvas.getContext("2d");
+                        ctx.drawImage(img, 0, 0, width, height);
+                        var dataurl = canvas.toDataURL("image/jpg");
+                        document.getElementById('imgPrincipalG').src = e.target.result;
+
+                        ImageBae64 = dataurl;
+                        $("#base64").val(ImageBae64);
+                        //    IMG2 = e.target.result;
+
+                    }
+
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+
+
+
+        }
+        function toggleMensaje365() {
+            var check = document.getElementById("Office365Check");
+            var msg = document.getElementById("msg365");
+
+            if (!check || !msg) return;
+
+            msg.style.display = check.checked ? "inline" : "none";
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            toggleMensaje365();
+
+            var check = document.getElementById("Office365Check");
+            if (check) {
+                check.addEventListener("change", toggleMensaje365);
+                check.addEventListener("click", toggleMensaje365);
+            }
+        });
+    </script>
+
+
+
+}
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="breadcrumb-title pe-3">Usuarios</div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item">
+                    <a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Agregar Usuario</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="ms-auto">
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="card-title">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h4 class="mb-0">Agregar Usuarios</h4>
+                </div>
+                <div class="col-sm-6">
+                    <a asp-page="/Usuarios/Index" class="btn btn-outline-light btn-sm float-end me-3" style="text-decoration: underline;"><i class="lni lni-reply"></i>  Regresar</a>
+                </div>
+            </div>
+
+        </div>
+        <hr />
+        <form method="post" id="formTipos" role="form" novalidate class="needs-validation  " enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div> 
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="nom" class="form-label">Nombre</label>
+                        <div class="input-group">
+
+                            <input type="text" class="form-control border-start-0" id="nom" placeholder="Nombre" asp-for="Input.Nombre">
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="correo" class="form-label">Correo Electrónico</label>
+                        <div class="input-group">
+
+                            <input type="email" class="form-control border-start-0" id="correo" placeholder="correo@example.com" asp-for="Input.NombreUsuario">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="rol" class="form-label">Rol</label>
+                        <div class="input-group">
+
+                            <select class="form-control single-select select2" id="rol" asp-for="Input.idRol" required>
+                                <option value="0"> Seleccione</option>
+
+                                @foreach (var item in Model.Roles)
+                                {
+                                    <option value="@item.idRol"> @item.NombreRol</option>
+                                }
+
+
+                            </select>
+                        </div>
+
+                    </div>
+                </div> 
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="clave" class="form-label">Contraseña</label>
+                        <div class="input-group">
+
+                            <input class="form-control border-start-0" type="password" asp-for="Input.Clave" id="clave" onchange="javascript: RevisaContraseña()">
+                        </div>
+                        <span style="display:none;" id="ErrorClave" class="text-danger"></span>
+                        <div class="controls">
+                          
+                         
+                            <br />
+                            <span id="msg365" class="text-danger" style="display:none;">
+                                Se aplican las políticas de seguridad de inicio de sesión de 365
+                            </span>
+                            <br />
+                            <span class="text-danger"> La contraseña debe cumplir con los siguientes requisitos:</span>
+                            <ul class="text-danger">
+                                <li class="text-danger">
+                                    A. Estar formada por mínimo 8 Caracteres
+                                </li>
+                                <li class="text-danger">B. Mínimo 1 Letra Mayúscula</li>
+                                <li class="text-danger">C. Mínimo 1 Letra Minúscula</li>
+                                <li class="text-danger">D. Mínimo 1 Número</li>
+                                <li class="text-danger">E. Mínimo 1 Carácter Especial</li>
+
+
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="cClave" class="form-label">Confirmar Contraseña</label>
+                        <div class="input-group">
+
+                            <input class="form-control border-start-0" id="cClave" type="password" onchange="javascript: RevisaConfirmacionContraseña()">
+                        </div>
+                        <span style="display:none;" id="ErrorConfirmacionClave" class="text-danger"></span>
+                        <br />
+                    
+                    </div>
+
+                </div>
+          
+            
+                <div class="col-12">
+                    <button type="submit" id="Guardar" class="btn btn-rounded btn-outline-success px-5">Guardar</button>
+                </div>
+            </div>
+
+
+
+
+        </form>
+    </div>
+</div>
+ 

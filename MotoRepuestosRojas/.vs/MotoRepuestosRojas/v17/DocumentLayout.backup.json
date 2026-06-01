@@ -1,0 +1,316 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|c:\\users\\steven rodriguez\\documents\\repositorios d\u0026d\\motorepuestosrojas\\forecast\\startup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|solutionrelative:forecast\\startup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|c:\\users\\steven rodriguez\\documents\\repositorios d\u0026d\\motorepuestosrojas\\forecast\\motorepuestosrojas.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|solutionrelative:forecast\\motorepuestosrojas.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|c:\\users\\steven rodriguez\\documents\\repositorios d\u0026d\\motorepuestosrojas\\forecast\\pages\\marcas\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|solutionrelative:forecast\\pages\\marcas\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|c:\\users\\steven rodriguez\\documents\\repositorios d\u0026d\\motorepuestosrojas\\forecast\\servicios\\icrudapi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|solutionrelative:forecast\\servicios\\icrudapi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|c:\\users\\steven rodriguez\\documents\\repositorios d\u0026d\\motorepuestosrojas\\forecast\\models\\loginusuarioviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|solutionrelative:forecast\\models\\loginusuarioviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|c:\\users\\steven rodriguez\\documents\\repositorios d\u0026d\\motorepuestosrojas\\forecast\\models\\loginusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|solutionrelative:forecast\\models\\loginusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|c:\\users\\steven rodriguez\\documents\\repositorios d\u0026d\\motorepuestosrojas\\forecast\\models\\logindevolucion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|solutionrelative:forecast\\models\\logindevolucion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|c:\\users\\steven rodriguez\\documents\\repositorios d\u0026d\\motorepuestosrojas\\forecast\\models\\logincambioclave.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|solutionrelative:forecast\\models\\logincambioclave.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|c:\\users\\steven rodriguez\\documents\\repositorios d\u0026d\\motorepuestosrojas\\forecast\\pages\\account\\login.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|solutionrelative:forecast\\pages\\account\\login.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|c:\\users\\steven rodriguez\\documents\\repositorios d\u0026d\\motorepuestosrojas\\forecast\\pages\\account\\cambiocontrasena.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|solutionrelative:forecast\\pages\\account\\cambiocontrasena.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|c:\\users\\steven rodriguez\\documents\\repositorios d\u0026d\\motorepuestosrojas\\forecast\\pages\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|solutionrelative:forecast\\pages\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|c:\\users\\steven rodriguez\\documents\\repositorios d\u0026d\\motorepuestosrojas\\forecast\\models\\vectorusuarios.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|solutionrelative:forecast\\models\\vectorusuarios.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|c:\\users\\steven rodriguez\\documents\\repositorios d\u0026d\\motorepuestosrojas\\forecast\\models\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|solutionrelative:forecast\\models\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|c:\\users\\steven rodriguez\\documents\\repositorios d\u0026d\\motorepuestosrojas\\forecast\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|solutionrelative:forecast\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|c:\\users\\steven rodriguez\\documents\\repositorios d\u0026d\\motorepuestosrojas\\forecast\\pages\\usuarios\\editar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|solutionrelative:forecast\\pages\\usuarios\\editar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|c:\\users\\steven rodriguez\\documents\\repositorios d\u0026d\\motorepuestosrojas\\forecast\\pages\\usuarios\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|solutionrelative:forecast\\pages\\usuarios\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|c:\\users\\steven rodriguez\\documents\\repositorios d\u0026d\\motorepuestosrojas\\forecast\\pages\\account\\registrousuario.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|solutionrelative:forecast\\pages\\account\\registrousuario.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|c:\\users\\steven rodriguez\\documents\\repositorios d\u0026d\\motorepuestosrojas\\forecast\\models\\usuariosviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{762623F6-323B-48B5-A3F4-1F12E7A67DEE}|FORECAST\\MotoRepuestosRojas.csproj|solutionrelative:forecast\\models\\usuariosviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 10,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MotoRepuestosRojas",
+              "DocumentMoniker": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\MotoRepuestosRojas.csproj",
+              "RelativeDocumentMoniker": "FORECAST\\MotoRepuestosRojas.csproj",
+              "ToolTip": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\MotoRepuestosRojas.csproj",
+              "RelativeToolTip": "FORECAST\\MotoRepuestosRojas.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-05-28T17:54:22.766Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "LoginDevolucion.cs",
+              "DocumentMoniker": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Models\\LoginDevolucion.cs",
+              "RelativeDocumentMoniker": "FORECAST\\Models\\LoginDevolucion.cs",
+              "ToolTip": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Models\\LoginDevolucion.cs",
+              "RelativeToolTip": "FORECAST\\Models\\LoginDevolucion.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABcAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-28T17:35:56.501Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "CambioContrasena.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Pages\\Account\\CambioContrasena.cshtml.cs",
+              "RelativeDocumentMoniker": "FORECAST\\Pages\\Account\\CambioContrasena.cshtml.cs",
+              "ToolTip": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Pages\\Account\\CambioContrasena.cshtml.cs",
+              "RelativeToolTip": "FORECAST\\Pages\\Account\\CambioContrasena.cshtml.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAvwCQAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-28T17:27:27.785Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Login.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Pages\\Account\\Login.cshtml.cs",
+              "RelativeDocumentMoniker": "FORECAST\\Pages\\Account\\Login.cshtml.cs",
+              "ToolTip": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Pages\\Account\\Login.cshtml.cs",
+              "RelativeToolTip": "FORECAST\\Pages\\Account\\Login.cshtml.cs",
+              "ViewState": "AgIAAGQAAAAAAAAAAAAkwHAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-28T17:26:50.735Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ICrudApi.cs",
+              "DocumentMoniker": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Servicios\\ICrudApi.cs",
+              "RelativeDocumentMoniker": "FORECAST\\Servicios\\ICrudApi.cs",
+              "ToolTip": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Servicios\\ICrudApi.cs",
+              "RelativeToolTip": "FORECAST\\Servicios\\ICrudApi.cs",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAwwFEAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-28T17:26:36.448Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Pages\\Account\\Login.cshtml",
+              "RelativeDocumentMoniker": "FORECAST\\Pages\\Account\\Login.cshtml",
+              "ToolTip": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Pages\\Account\\Login.cshtml",
+              "RelativeToolTip": "FORECAST\\Pages\\Account\\Login.cshtml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-28T17:23:13.739Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "VectorUsuarios.cs",
+              "DocumentMoniker": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Models\\VectorUsuarios.cs",
+              "RelativeDocumentMoniker": "FORECAST\\Models\\VectorUsuarios.cs",
+              "ToolTip": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Models\\VectorUsuarios.cs",
+              "RelativeToolTip": "FORECAST\\Models\\VectorUsuarios.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-28T17:20:12.372Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "LoginUsuarioViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Models\\LoginUsuarioViewModel.cs",
+              "RelativeDocumentMoniker": "FORECAST\\Models\\LoginUsuarioViewModel.cs",
+              "ToolTip": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Models\\LoginUsuarioViewModel.cs",
+              "RelativeToolTip": "FORECAST\\Models\\LoginUsuarioViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-28T17:20:01.621Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "LoginUsuario.cs",
+              "DocumentMoniker": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Models\\LoginUsuario.cs",
+              "RelativeDocumentMoniker": "FORECAST\\Models\\LoginUsuario.cs",
+              "ToolTip": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Models\\LoginUsuario.cs",
+              "RelativeToolTip": "FORECAST\\Models\\LoginUsuario.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-28T17:19:52.752Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "LoginViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Models\\LoginViewModel.cs",
+              "RelativeDocumentMoniker": "FORECAST\\Models\\LoginViewModel.cs",
+              "ToolTip": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Models\\LoginViewModel.cs",
+              "RelativeToolTip": "FORECAST\\Models\\LoginViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-28T17:19:38.076Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Startup.cs",
+              "DocumentMoniker": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Startup.cs",
+              "RelativeDocumentMoniker": "FORECAST\\Startup.cs",
+              "ToolTip": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Startup.cs",
+              "RelativeToolTip": "FORECAST\\Startup.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAAwwEAAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-28T17:18:20.172Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Index.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Pages\\Marcas\\Index.cshtml.cs",
+              "RelativeDocumentMoniker": "FORECAST\\Pages\\Marcas\\Index.cshtml.cs",
+              "ToolTip": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Pages\\Marcas\\Index.cshtml.cs",
+              "RelativeToolTip": "FORECAST\\Pages\\Marcas\\Index.cshtml.cs",
+              "ViewState": "AgIAACoAAAAAAAAAAADgvzoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-28T17:47:50.603Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "LoginCambioClave.cs",
+              "DocumentMoniker": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Models\\LoginCambioClave.cs",
+              "RelativeDocumentMoniker": "FORECAST\\Models\\LoginCambioClave.cs",
+              "ToolTip": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Models\\LoginCambioClave.cs",
+              "RelativeToolTip": "FORECAST\\Models\\LoginCambioClave.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-28T17:46:49.784Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\appsettings.json",
+              "RelativeDocumentMoniker": "FORECAST\\appsettings.json",
+              "ToolTip": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\appsettings.json",
+              "RelativeToolTip": "FORECAST\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-05-28T17:29:24.774Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Editar.cshtml",
+              "DocumentMoniker": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Pages\\Usuarios\\Editar.cshtml",
+              "RelativeDocumentMoniker": "FORECAST\\Pages\\Usuarios\\Editar.cshtml",
+              "ToolTip": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Pages\\Usuarios\\Editar.cshtml",
+              "RelativeToolTip": "FORECAST\\Pages\\Usuarios\\Editar.cshtml",
+              "ViewState": "AgIAAGABAAAAAAAAAAAcwH0BAACdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-28T17:27:38.317Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Pages\\Usuarios\\Index.cshtml",
+              "RelativeDocumentMoniker": "FORECAST\\Pages\\Usuarios\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Pages\\Usuarios\\Index.cshtml",
+              "RelativeToolTip": "FORECAST\\Pages\\Usuarios\\Index.cshtml",
+              "ViewState": "AgIAAKMAAAAAAAAAAAAcwL0AAAB7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-28T17:28:01.935Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "RegistroUsuario.cshtml",
+              "DocumentMoniker": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Pages\\Account\\RegistroUsuario.cshtml",
+              "RelativeDocumentMoniker": "FORECAST\\Pages\\Account\\RegistroUsuario.cshtml",
+              "ToolTip": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Pages\\Account\\RegistroUsuario.cshtml",
+              "RelativeToolTip": "FORECAST\\Pages\\Account\\RegistroUsuario.cshtml",
+              "ViewState": "AgIAAIwBAAAAAAAAAAAAAKUBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-28T17:19:15.772Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "UsuariosViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Models\\UsuariosViewModel.cs",
+              "RelativeDocumentMoniker": "FORECAST\\Models\\UsuariosViewModel.cs",
+              "ToolTip": "C:\\Users\\Steven Rodriguez\\Documents\\Repositorios D\u0026D\\MotoRepuestosRojas\\FORECAST\\Models\\UsuariosViewModel.cs",
+              "RelativeToolTip": "FORECAST\\Models\\UsuariosViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-28T17:18:29.535Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
