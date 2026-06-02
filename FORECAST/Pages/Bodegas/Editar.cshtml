@@ -1,0 +1,78 @@
+﻿@page "{id}"
+@model MotoRepuestosRojas.Pages.Bodegas.EditarModel
+@{
+    ViewData["Title"] = "Bodegas";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Bodegas
+    </h1>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#"><i class="ti-dashboard"></i></a></li>
+        <li class="breadcrumb-item active">Editar Bodega</li>
+    </ol>
+</section>
+
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <div class="row">
+                        <div class="col-8">
+                            <h6 class="box-subtitle"> Editar Bodega</h6>
+
+                        </div>
+                        <div class="col-4">
+                            <a asp-page="./Index" class="nav-link text-dark" style="text-decoration: underline;"><i class="ti-back-left "></i>  Regresar</a>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <form method="post" id="formTipos" role="form" novalidate class="needs-validation " enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input hidden asp-for="Bodega.id" />
+                        <div class="row">
+
+
+
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <h5>Nombre de la Bodega<span class="text-danger">*</span></h5>
+                                    <div class="controls">
+                                        <input type="text" asp-for="Bodega.Nombre" class="form-control" required data-validation-required-message="Este campo es requerido">
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+
+
+
+                        <br />
+
+
+
+
+                        <div class="text-xs-right">
+                            <button type="submit" class="btn btn-info" title="Guardar Cambios">Guardar Cambios</button>
+                        </div>
+                    </form>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</section>
