@@ -1,0 +1,250 @@
+﻿@page
+@using System.Globalization
+@model FORECAST.Pages.Productos.IndexModel
+@{
+    ViewData["Title"] = "Productos";
+
+    NumberFormatInfo formato = new CultureInfo("es-CR").NumberFormat;
+    formato.CurrencySymbol = "";
+    formato.CurrencyGroupSeparator = ",";
+    formato.NumberDecimalSeparator = ".";
+}
+
+@section styles {
+}
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('.select2').select2();
+
+            $(".js-example-responsive").select2({
+                width: 'resolve',
+                height: 'resolve'
+            });
+        });
+
+        var ids = 0;
+
+        function onClickModal(id) {
+            ids = id;
+
+            Swal.fire({
+                title: '¿Desea eliminar este Producto?',
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: `Aceptar`,
+                denyButtonText: `Cancelar`,
+                customClass: {
+                    confirmButton: 'swalBtnColor',
+                    denyButton: 'swalDeny'
+                },
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Eliminar();
+                }
+            });
+        }
+
+        function Eliminar() {
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: '@Url.Page("Index", "Eliminar")',
+                data: { id: ids },
+                success: function (result) {
+                    if (result == false) {
+                        ids = 0;
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Ha ocurrido un error al intentar eliminar'
+                        });
+
+                    } else {
+                        Swal.fire({
+                            title: "Ha sido eliminado con éxito",
+                            icon: 'success',
+                            showCancelButton: false,
+                            customClass: {
+                                confirmButton: 'swalBtnColor',
+                            },
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        });
+                    }
+                },
+                beforeSend: function () {
+                }
+            });
+        }
+    </script>
+}
+
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="breadcrumb-title pe-3">Productos</div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item">
+                    <a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Listado Productos</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="ms-auto">
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="card-title">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h4 class="mb-0">Filtro</h4>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+
+        <form method="get">
+            <div class="row g-3">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="bodega" class="form-label">Bodega</label>
+                        <div class="input-group">
+                            <select id="bodega" class="form-control single-select select2" asp-for="filtro.Codigo1">
+                                <option value="0">Seleccione Bodega</option>
+                                @foreach (var item in Model.Bodegas)
+                                {
+                                    <option value="@item.id">@item.id - @item.Nombre</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="categoria" class="form-label">Categorias</label>
+                        <div class="input-group">
+                            <select id="categoria" class="form-control single-select select2" asp-for="filtro.Codigo2">
+                                <option value="0">Seleccione Categoria</option>
+                                @foreach (var item in Model.Categorias)
+                                {
+                                <option value="@item.id">@item.id - @item.Nombre</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-2" style="padding-top: 29px;">
+                    <button title="Buscar" type="submit" class="btn btn-rounded btn-outline-primary">
+                        Buscar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="card-title">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h4 class="mb-0">Listado de Productos</h4>
+                </div>
+
+                <div class="col-sm-6 text-end">
+                    <a asp-page="./Nuevo" class="btn btn-rounded btn-outline-primary" title="Agregar">
+                        + Agregar
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered datatable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Producto</th>
+                        <th>Bodega</th>
+                        <th>Precio Unitario</th>
+                        <th>Costo</th>
+                        <th>Stock</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model.Objeto)
+                    {
+                        <tr>
+                            <td>@item.id</td>
+
+                            <td align="left" style="padding-top:15px;">
+                                <a style="font-size:15px;">
+                                    @item.Codigo - @item.Nombre
+                                </a>
+                            </td>
+
+                            <td align="left" style="padding-top:15px;">
+                                <a style="font-size:15px;">
+                                    @(Model.Bodegas.Where(a => a.id == item.idBodega).FirstOrDefault() == null ? "Bodega Inexistente" : Model.Bodegas.Where(a => a.id == item.idBodega).FirstOrDefault().Nombre)
+                                </a>
+                            </td>
+
+                            <td align="left" style="padding-top:15px;">
+                                ₡@Math.Round(item.PrecioUnitario, 2).ToString("C", formato)
+                            </td>
+
+                            <td align="left" style="padding-top:15px;">
+                                ₡@Math.Round(item.Costo, 2).ToString("C", formato)
+                            </td>
+
+                            <td align="left" style="padding-top:15px;">
+                                @Math.Round(item.Stock, 2)
+                            </td>
+
+                            <td align="center" style="padding-top:15px;">
+                                <a asp-page="./Editar"
+                                   asp-route-id="@item.id"
+                                   class="btn btn-rounded btn-outline-warning">
+                                    Editar
+                                </a>
+                                &nbsp;
+
+                                <a onclick="javascript: onClickModal('@item.id')"
+                                   class="btn btn-rounded btn-outline-danger">
+                                    Eliminar
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+                <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>Producto</th>
+                        <th>Bodega</th>
+                        <th>Precio Unitario</th>
+                        <th>Costo</th>
+                        <th>Stock</th>
+                        <th>Acción</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>

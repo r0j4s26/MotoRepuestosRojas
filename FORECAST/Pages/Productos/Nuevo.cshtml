@@ -1,0 +1,163 @@
+﻿@page
+@model FORECAST.Pages.Productos.NuevoModel
+@{
+    ViewData["Title"] = "Productos";
+}
+
+@section styles {
+}
+
+@section scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function () {
+            $('.select2').select2();
+        });
+    </script>
+}
+
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="breadcrumb-title pe-3">Productos</div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item">
+                    <a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Agregar Producto</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="ms-auto">
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="card-title">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h4 class="mb-0">Agregar Producto</h4>
+                </div>
+                <div class="col-sm-6">
+                    <a asp-page="./Index" class="btn btn-outline-light btn-sm float-end me-3" style="text-decoration: underline;">
+                        Regresar
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+
+        <form method="post" id="formTipos" role="form" novalidate class="needs-validation" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="codigo" class="form-label">Código</label>
+                        <div class="input-group">
+                            <input type="text"
+                                   id="codigo"
+                                   asp-for="Producto.Codigo"
+                                   class="form-control border-start-0"
+                                   required
+                                   data-validation-required-message="Este campo es requerido">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <div class="input-group">
+                            <input type="text"
+                                   id="nombre"
+                                   asp-for="Producto.Nombre"
+                                   class="form-control border-start-0"
+                                   required
+                                   data-validation-required-message="Este campo es requerido">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="precioUnitario" class="form-label">Precio Unitario</label>
+                        <div class="input-group">
+                            <input type="number"
+                                   id="precioUnitario"
+                                   asp-for="Producto.PrecioUnitario"
+                                   class="form-control border-start-0"
+                                   required
+                                   data-validation-required-message="Este campo es requerido">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="costo" class="form-label">Costo</label>
+                        <div class="input-group">
+                            <input type="number"
+                                   id="costo"
+                                   asp-for="Producto.Costo"
+                                   class="form-control border-start-0"
+                                   required
+                                   data-validation-required-message="Este campo es requerido">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="stock" class="form-label">Stock</label>
+                        <div class="input-group">
+                            <input type="number"
+                                   id="stock"
+                                   asp-for="Producto.Stock"
+                                   class="form-control border-start-0"
+                                   required
+                                   data-validation-required-message="Este campo es requerido">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="bodega" class="form-label">Bodega</label>
+                        <div class="input-group">
+                            <select id="bodega" class="form-control single-select select2" asp-for="Producto.idBodega" required>
+                                @foreach (var item in Model.Bodegas)
+                                {
+                                    <option value="@item.id">@item.Nombre</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="categoria" class="form-label">Categoria</label>
+                        <div class="input-group">
+                            <select id="categoria" class="form-control single-select select2" asp-for="Producto.idCategoria" required>
+                                @foreach (var item in Model.Categorias)
+                                {
+                                    <option value="@item.id">@item.Nombre</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <button type="submit" id="Guardar" class="btn btn-rounded btn-outline-success px-5">
+                        Guardar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
