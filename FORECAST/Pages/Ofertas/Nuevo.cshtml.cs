@@ -169,7 +169,7 @@ namespace MotoRepuestosRojas.Pages.Ofertas
 
             try
             {
-
+                recibidos.idUsuarioCreador = Convert.ToInt32(((ClaimsIdentity)User.Identity).Claims.Where(d => d.Type == ClaimTypes.Actor).Select(s1 => s1.Value).FirstOrDefault().ToString());
                 var resp = await service.Agregar(recibidos);
 
                 var resp2 = new

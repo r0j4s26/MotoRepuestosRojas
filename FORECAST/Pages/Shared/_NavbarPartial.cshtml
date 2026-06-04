@@ -91,7 +91,7 @@
 
                         </a>
 
-                        @if (!string.IsNullOrEmpty(Roles.Where(a => a == "1").FirstOrDefault()))
+                        @if (!string.IsNullOrEmpty(Roles.Where(a => a == "4").FirstOrDefault()))
                         {
                             <ul class="mm-collapse" style="">
 
@@ -107,30 +107,30 @@
                     </li>
                     <li>
                         <a class="has-arrow" href="javascript:;" aria-expanded="true">
-                            <i class="material-icons-outlined">groups</i>Precios
+                            <i class="material-icons-outlined">price_change</i>Precios
 
                         </a>
 
-                        @if (!string.IsNullOrEmpty(Roles.Where(a => a == "1").FirstOrDefault()))
+                        @if (!string.IsNullOrEmpty(Roles.Where(a => a == "8").FirstOrDefault()))
                         {
                             <ul class="mm-collapse" style="">
 
 
                                 <li>
-                                    <a asp-page="/CondicionesPagos/Index"><i class="material-icons-outlined">groups</i>Condiciones De Pago</a>
+                                    <a asp-page="/CondicionesPagos/Index"><i class="material-icons-outlined">payments</i>Condiciones De Pago</a>
                                 </li>
 
 
 
                             </ul>
                         }
-                        @if (!string.IsNullOrEmpty(Roles.Where(a => a == "1").FirstOrDefault()))
+                        @if (!string.IsNullOrEmpty(Roles.Where(a => a == "14").FirstOrDefault()))
                         {
                             <ul class="mm-collapse" style="">
 
 
                                 <li>
-                                    <a asp-page="/Impuestos/Index"><i class="material-icons-outlined">groups</i>Impuestos</a>
+                                    <a asp-page="/Impuestos/Index"><i class="material-icons-outlined">receipt_long</i>Impuestos</a>
                                 </li>
 
 
@@ -141,42 +141,42 @@
                   
                         <li>
                             <a class="has-arrow" href="javascript:;" aria-expanded="true">
-                                <i class="material-icons-outlined">groups</i>Inventario
+                            <i class="material-icons-outlined">inventory_2</i>Inventario
 
                             </a>
-                        @if (!string.IsNullOrEmpty(Roles.Where(a => a == "1").FirstOrDefault()))
+                        @if (!string.IsNullOrEmpty(Roles.Where(a => a == "16").FirstOrDefault()))
                         {
                             <ul class="mm-collapse" style="">
 
 
                                 <li>
-                                    <a asp-page="/Productos/Index"><i class="material-icons-outlined">groups</i>Productos</a>
+                                    <a asp-page="/Productos/Index"><i class="material-icons-outlined">inventory_2</i>Productos</a>
                                 </li>
 
 
 
                             </ul>
                             }
-                        @if (!string.IsNullOrEmpty(Roles.Where(a => a == "1").FirstOrDefault()))
+                        @if (!string.IsNullOrEmpty(Roles.Where(a => a == "12").FirstOrDefault()))
                         {
                             <ul class="mm-collapse" style="">
 
 
                                 <li>
-                                    <a asp-page="/Categorias/Index"><i class="material-icons-outlined">groups</i>Categorias</a>
+                                    <a asp-page="/Categorias/Index"><i class="material-icons-outlined">category</i>Categorias</a>
                                 </li>
 
 
 
                             </ul>
                         }
-                        @if (!string.IsNullOrEmpty(Roles.Where(a => a == "1").FirstOrDefault()))
+                        @if (!string.IsNullOrEmpty(Roles.Where(a => a == "10").FirstOrDefault()))
                         {
                             <ul class="mm-collapse" style="">
 
 
                                 <li>
-                                    <a asp-page="/Bodegas/Index"><i class="material-icons-outlined">groups</i>Bodegas</a>
+                                    <a asp-page="/Bodegas/Index"><i class="material-icons-outlined">warehouse</i>Bodegas</a>
                                 </li>
 
 
@@ -187,89 +187,25 @@
                    
 
 
-                    <li>
-                        <a class="has-arrow" href="javascript:;" aria-expanded="true">
-                            <i class="material-icons-outlined">menu_book</i>Catálogos
-
-                        </a>
-                        <ul class="mm-collapse" style="">
-                            @if (!string.IsNullOrEmpty(Roles.Where(a => a == "8").FirstOrDefault()))
-                            {
-                                <li>
-                                    <a asp-page="/Sucursales/Index"><i class="material-icons-outlined">business</i>Sucursales</a>
-                                </li>
-
-                            }
-
-                            @if (!string.IsNullOrEmpty(Roles.Where(a => a == "14").FirstOrDefault()))
-                            {
-                                <li>
-                                    <a asp-page="/Presupuestos/Index"><i class="material-icons-outlined">request_quote</i>Presupuestos</a>
-                                </li>
-
-                            }
-
-                            @if (!string.IsNullOrEmpty(Roles.Where(a => a == "22").FirstOrDefault()))
-                            {
-                                <li>
-                                    <a asp-page="/Marcas/Index"><i class="material-icons-outlined">sell</i>Marcas</a>
-                                </li>
-
-                            }
-                            @if (!string.IsNullOrEmpty(Roles.Where(a => a == "23").FirstOrDefault()))
-                            {
-                                <li>
-                                    <a asp-page="/Grupos/Index"><i class="material-icons-outlined">inventory_2</i>Grupos</a>
-                                </li>
-
-                            }
-                            @if (!string.IsNullOrEmpty(Roles.Where(a => a == "24").FirstOrDefault()))
-                            {
-                                <li>
-                                    <a asp-page="/Ingredientes/Index"><i class="material-icons-outlined">science</i>Ingredientes</a>
-                                </li>
-
-                            }
-                            @if (!string.IsNullOrEmpty(Roles.Where(a => a == "25").FirstOrDefault()))
-                            {
-                                <li>
-                                    <a asp-page="/Productos/Index"><i class="material-icons-outlined">inventory_2</i>Productos</a>
-                                </li>
-
-                            }
-                            @if (!string.IsNullOrEmpty(Roles.Where(a => a == "26").FirstOrDefault()))
-                            {
-                                <li>
-                                    <a asp-page="/Precios/Index"><i class="material-icons-outlined">attach_money</i>Precios</a>
-                                </li>
-
-                            }
-                        </ul>
-                    </li>
+              
 
 
 
 
 
-                    @if (!string.IsNullOrEmpty(Roles.Where(a => a == "27").FirstOrDefault()))
-                    {
-                        <li>
-                            <a asp-page="/Ventas/Index"><i class="material-icons-outlined">bar_chart</i>Ventas</a>
-                        </li>
-
-                    }
+                
                 </ul>
             </li>
             <hr />
 
-            @if (!string.IsNullOrEmpty(Roles.Where(a => a == "38").FirstOrDefault()))
+            @if (!string.IsNullOrEmpty(Roles.Where(a => a == "18").FirstOrDefault()))
             {
                 <li>
-                    <a asp-page="/Forecast/Index">
+                    <a asp-page="/Ofertas/Index">
                         <div class="parent-icon">
-                            <i class="material-icons-outlined">trending_up</i>
+                            <i class="material-icons-outlined">request_quote</i>
                         </div>
-                        <div class="menu-title">Forecast</div>
+                        <div class="menu-title">Cotizaciones</div>
                     </a>
                 </li>
             }

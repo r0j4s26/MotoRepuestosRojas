@@ -34,6 +34,7 @@ namespace FORECAST.Pages.Productos
         [BindProperty]
         public CategoriasViewModel[] Categorias { get; set; }
 
+ 
 
 
 
@@ -50,7 +51,7 @@ namespace FORECAST.Pages.Productos
             try
             {
                 var Roles = ((ClaimsIdentity)User.Identity).Claims.Where(d => d.Type == "Roles").Select(s1 => s1.Value).FirstOrDefault().Split("|");
-                if (string.IsNullOrEmpty(Roles.Where(a => a == "1").FirstOrDefault()))
+                if (string.IsNullOrEmpty(Roles.Where(a => a == "16").FirstOrDefault()))
                 {
                     return RedirectToPage("/NoPermiso");
                 }
@@ -59,7 +60,7 @@ namespace FORECAST.Pages.Productos
                 Categorias = await categorias.ObtenerLista("");
 
 
-                Objeto = await service.ObtenerLista("");
+                Objeto = await service.ObtenerLista(filtro);
 
 
                 return Page();

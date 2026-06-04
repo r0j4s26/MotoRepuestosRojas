@@ -49,7 +49,7 @@ namespace FORECAST.Pages.Clientes
             try
             {
                 var Roles = ((ClaimsIdentity)User.Identity).Claims.Where(d => d.Type == "Roles").Select(s1 => s1.Value).FirstOrDefault().Split("|");
-                if (string.IsNullOrEmpty(Roles.Where(a => a == "1").FirstOrDefault()))
+                if (string.IsNullOrEmpty(Roles.Where(a => a == "7").FirstOrDefault()))
                 {
                     return RedirectToPage("/NoPermiso");
                 }
@@ -75,6 +75,25 @@ namespace FORECAST.Pages.Clientes
         {
             try
             {
+                if (Cliente == null ||
+                    string.IsNullOrWhiteSpace(Cliente.Cedula) ||
+                    string.IsNullOrWhiteSpace(Cliente.Nombre) ||
+                    string.IsNullOrWhiteSpace(Cliente.Email) ||
+                    string.IsNullOrWhiteSpace(Cliente.Telefono) ||
+                    string.IsNullOrWhiteSpace(Cliente.Sennas) ||
+                    Cliente.Provincia == 0 ||
+                    Cliente.Canton == "" ||
+                    Cliente.Distrito == "" ||
+                    Cliente.Barrio == "")
+                {
+                    Cantones = await serviceC.ObtenerLista("");
+                    Distritos = await serviceD.ObtenerLista("");
+                    Barrios = await serviceB.ObtenerLista("");
+
+                    ModelState.AddModelError(string.Empty, "Debe completar todos los datos obligatorios.");
+                    return Page();
+                }
+
                 await service.Agregar(Cliente);
                 return RedirectToPage("./Index");
             }
@@ -83,10 +102,11 @@ namespace FORECAST.Pages.Clientes
                 Cantones = await serviceC.ObtenerLista("");
                 Distritos = await serviceD.ObtenerLista("");
                 Barrios = await serviceB.ObtenerLista("");
+
                 Errores error = JsonConvert.DeserializeObject<Errores>(ex.Content.ToString());
                 ModelState.AddModelError(string.Empty, error.Message);
 
-                return new PageResult();
+                return Page();
             }
         }
     }

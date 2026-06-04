@@ -42,14 +42,14 @@
 <input hidden id="urlFacturas" value="@Url.Page("Nuevo", "Facturas")" />
 
 <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-    <div class="breadcrumb-title pe-3">Ofertas</div>
+    <div class="breadcrumb-title pe-3">Cotizaciones</div>
     <div class="ps-3">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-0 p-0">
                 <li class="breadcrumb-item">
                     <a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">Generar Oferta</li>
+                <li class="breadcrumb-item active" aria-current="page">Generar Cotización</li>
             </ol>
         </nav>
     </div>
@@ -62,7 +62,7 @@
         <div class="card-title">
             <div class="row">
                 <div class="col-sm-6">
-                    <h4 class="mb-0">Generar Oferta</h4>
+                    <h4 class="mb-0">Generar Cotización</h4>
                 </div>
                 <div class="col-sm-6">
                     <a asp-page="./Index" class="btn btn-outline-light btn-sm float-end me-3" style="text-decoration: underline;">
@@ -77,10 +77,23 @@
         <div class="row g-3">
             <div class="col-md-3">
                 <div class="page-header mt-0">
-                    <h4 class="mb-1">Oferta</h4>
+                    <h4 class="mb-1">Cotización</h4>
                     <label class="form-label">Fecha</label>
                     <div>@DateTime.Now.ToString("dd MMM yyy")</div>
                     <input hidden id="Fecha" type="datetime" value="@DateTime.Now" />
+                </div>
+            </div>
+           
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="selectTD" class="form-label">Tipo de Documento</label>
+                    <div class="input-group">
+                        <select class="form-control single-select select2" id="selectTD">
+                            <option value="01">Factura Electrónica</option>
+
+                            <option value="04">Tiquete Electrónico</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
@@ -95,14 +108,11 @@
                 </div>
             </div>
 
-            <div class="col-md-6 text-end" style="padding-top: 29px;">
-                <a onclick="javascript: AbrirModalAgregarCliente()" class="btn btn-rounded btn-outline-primary" title="Agregar">
-                    + Agregar Cliente
-                </a>
-            </div>
 
+           
             <div class="col-md-6">
                 <div class="form-group">
+                    <div class="col-sm-6" style="text-align: right"> <a onclick="javascript: AbrirModalAgregarCliente()" style="color: #57b846;" title="Agregar"><i class="fa fa-plus"></i> Agregar Cliente</a></div>
                     <label for="ClienteSeleccionado" class="form-label">Cliente</label>
                     <div class="input-group">
                         <select id="ClienteSeleccionado" asp-for="Oferta.idCliente" class="form-control single-select select2" onchange="javascript: onChangeCliente()">
@@ -115,9 +125,10 @@
                     <strong id="strongInfo">Phone: &nbsp;&nbsp;&nbsp;&nbsp; Email:</strong>
                 </div>
             </div>
-
+          
             <div class="col-md-3">
                 <div class="form-group">
+<br />
                     <label for="selectCondPago" class="form-label">Cond. Pago</label>
                     <div class="input-group">
                         <select class="form-control single-select select2" id="selectCondPago">

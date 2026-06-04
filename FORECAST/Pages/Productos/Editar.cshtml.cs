@@ -44,7 +44,7 @@ namespace FORECAST.Pages.Productos
             try
             {
                 var Roles = ((ClaimsIdentity)User.Identity).Claims.Where(d => d.Type == "Roles").Select(s1 => s1.Value).FirstOrDefault().Split("|");
-                if (string.IsNullOrEmpty(Roles.Where(a => a == "1").FirstOrDefault()))
+                if (string.IsNullOrEmpty(Roles.Where(a => a == "17").FirstOrDefault()))
                 {
                     return RedirectToPage("/NoPermiso");
                 }
@@ -67,6 +67,21 @@ namespace FORECAST.Pages.Productos
         {
             try
             {
+                if (Producto == null ||
+    string.IsNullOrWhiteSpace(Producto.Codigo) ||
+    string.IsNullOrWhiteSpace(Producto.Nombre) ||
+    Producto.idBodega == 0 ||
+    Producto.idCategoria == 0 ||
+    Producto.PrecioUnitario <= 0 ||
+    Producto.Costo < 0 ||
+    Producto.Stock < 0)
+                {
+                    Bodegas = await serviceBodegas.ObtenerLista("");
+                    Categorias = await categorias.ObtenerLista("");
+
+                    ModelState.AddModelError(string.Empty, "Debe completar todos los datos obligatorios del producto.");
+                    return Page();
+                }
                 await service.Editar(Producto);
                 return RedirectToPage("./Index");
             }

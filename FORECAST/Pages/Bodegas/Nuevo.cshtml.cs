@@ -9,6 +9,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System;
 using System.Linq;
+using System.Threading;
 
 namespace MotoRepuestosRojas.Pages.Bodegas
 {
@@ -33,7 +34,7 @@ namespace MotoRepuestosRojas.Pages.Bodegas
             try
             {
                 var Roles = ((ClaimsIdentity)User.Identity).Claims.Where(d => d.Type == "Roles").Select(s1 => s1.Value).FirstOrDefault().Split("|");
-                if (string.IsNullOrEmpty(Roles.Where(a => a == "1").FirstOrDefault()))
+                if (string.IsNullOrEmpty(Roles.Where(a => a == "11").FirstOrDefault()))
                 {
                     return RedirectToPage("/NoPermiso");
                 }
@@ -53,6 +54,12 @@ namespace MotoRepuestosRojas.Pages.Bodegas
         {
             try
             {
+                if (Bodegas == null ||
+                  string.IsNullOrWhiteSpace(Bodegas.Nombre) )
+                {
+                    ModelState.AddModelError(string.Empty, "Debe completar todos los datos obligatorios.");
+                    return Page();
+                }
                 await bodegas.Agregar(Bodegas);
                 return RedirectToPage("./Index");
             }

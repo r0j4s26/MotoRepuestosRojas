@@ -506,6 +506,11 @@
                             }
                         }
                         <hr class="dropdown-divider">
+                        <a asp-page="/Account/CambioContrasena" class="dropdown-item d-flex align-items-center gap-2 py-2">
+                          
+                            <span> Cambiar Contraseña </span>
+                        </a>
+                        <hr class="dropdown-divider">
 
                         <form class="form-inline" asp-page="/Account/Logout" id="cerrarSesion" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
                             <a class="dropdown-item d-flex align-items-center gap-2 py-2" onclick="document.getElementById('cerrarSesion').submit()">

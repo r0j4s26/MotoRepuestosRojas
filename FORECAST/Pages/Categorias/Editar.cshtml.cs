@@ -33,7 +33,7 @@ namespace FORECAST.Pages.Categorias
             try
             {
                 var Roles = ((ClaimsIdentity)User.Identity).Claims.Where(d => d.Type == "Roles").Select(s1 => s1.Value).FirstOrDefault().Split("|");
-                if (string.IsNullOrEmpty(Roles.Where(a => a == "1").FirstOrDefault()))
+                if (string.IsNullOrEmpty(Roles.Where(a => a == "13").FirstOrDefault()))
                 {
                     return RedirectToPage("/NoPermiso");
                 }
@@ -54,6 +54,12 @@ namespace FORECAST.Pages.Categorias
         {
             try
             {
+                if (Categorias == null ||
+               string.IsNullOrWhiteSpace(Categorias.Nombre))
+                {
+                    ModelState.AddModelError(string.Empty, "Debe completar todos los datos obligatorios.");
+                    return Page();
+                }
                 await service.Editar(Categorias);
                 return RedirectToPage("./Index");
             }

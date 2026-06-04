@@ -57,6 +57,8 @@ namespace Sicsoft.Checkin.Web.Servicios
         [Get("/Consultar")]
         Task<TEntity> ObtenerPorId(int id);
 
+        [Get("/Consultar")]
+        Task<TEntity> ObtenerPorIdString(string id);
 
         [Get("/RecalcularCuota")]
         Task<TEntity> RecalcularCuota(int id);
@@ -69,7 +71,7 @@ namespace Sicsoft.Checkin.Web.Servicios
 
  
 
-        [Post("/Eliminar")]
+        [Delete("/Eliminar")]
         Task Eliminar(int id);
 
         [Post("/Aprobar")]

@@ -57,7 +57,13 @@ namespace Sicsoft.CostaRica.Checkin.Web.Pages.Account
         {
             try
             {
-                Input.CedulaJuridica = ((ClaimsIdentity)User.Identity).Claims.Where(d => d.Type == ClaimTypes.NameIdentifier).Select(s1 => s1.Value).FirstOrDefault();
+                if (Input == null ||Input.idRol == 0 ||string.IsNullOrWhiteSpace(Input.Nombre) ||string.IsNullOrWhiteSpace(Input.NombreUsuario) ||string.IsNullOrWhiteSpace(Input.Clave))
+                {
+                    Roles = await roles.ObtenerLista("");
+
+                    ModelState.AddModelError(string.Empty, "Debe completar todos los datos obligatorios del usuario.");
+                    return Page();
+                }
                 if (string.IsNullOrEmpty(Input.Clave))
                 {
                     throw new Exception("La clave debe contener elementos");
