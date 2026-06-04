@@ -182,6 +182,7 @@
                         <th>Precio Unitario</th>
                         <th>Costo</th>
                         <th>Stock</th>
+                        <th>Categoría</th>
                         <th>Estado</th>
                         <th>Acción</th>
                     </tr>
@@ -215,6 +216,12 @@
 
                             <td align="left" style="padding-top:15px;">
                                 @Math.Round(item.Stock, 2)
+                            </td>
+
+                            <td align="left" style="padding-top:15px;">
+                                <a style="font-size:15px;">
+                                    @(Model.Categorias.Where(a => a.id == item.idCategoria).FirstOrDefault() == null ? "Categoria Inexistente" : Model.Categorias.Where(a => a.id == item.idCategoria).FirstOrDefault().Nombre)
+                                </a>
                             </td>
                             @if (item.Activo)
                             {
@@ -253,6 +260,7 @@
                         <th>Precio Unitario</th>
                         <th>Costo</th>
                         <th>Stock</th>
+                        <th>Categoría</th>
                         <th>Estado</th>
                         <th>Acción</th>
                     </tr>
