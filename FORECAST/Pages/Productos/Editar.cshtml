@@ -58,21 +58,7 @@
             <input hidden asp-for="Producto.id" />
 
             <div class="row g-3">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="codigo" class="form-label">Código</label>
-                        <div class="input-group">
-                            <input type="text"
-                                   id="codigo"
-                                   asp-for="Producto.Codigo"
-                                   class="form-control border-start-0"
-                                   required
-                                   data-validation-required-message="Este campo es requerido">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="form-group">
                         <label for="nombre" class="form-label">Nombre</label>
                         <div class="input-group">
@@ -82,6 +68,20 @@
                                    class="form-control border-start-0"
                                    required
                                    data-validation-required-message="Este campo es requerido">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="bodega" class="form-label">Bodega</label>
+                        <div class="input-group">
+                            <select id="bodega" class="form-control single-select select2" asp-for="Producto.idBodega" required>
+                                @foreach (var item in Model.Bodegas)
+                                {
+                                    <option value="@item.id">@item.Nombre</option>
+                                }
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -100,7 +100,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-2">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="costo" class="form-label">Costo</label>
                         <div class="input-group">
@@ -114,7 +114,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-2">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="stock" class="form-label">Stock</label>
                         <div class="input-group">
@@ -128,32 +128,6 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="bodega" class="form-label">Bodega</label>
-                        <div class="input-group">
-                            <select id="bodega" class="form-control single-select select2" asp-for="Producto.idBodega" required>
-                                @foreach (var item in Model.Bodegas)
-                                {
-                                    <option value="@item.id">@item.Nombre</option>
-                                }
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="categoria" class="form-label">Categoria</label>
-                        <div class="input-group">
-                            <select id="categoria" class="form-control single-select select2" asp-for="Producto.idCategoria" required>
-                                @foreach (var item in Model.Categorias)
-                                {
-                                    <option value="@item.id">@item.Nombre</option>
-                                }
-                            </select>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-12">
                     <button type="submit" id="Guardar" class="btn btn-rounded btn-outline-success px-5">
                         Guardar

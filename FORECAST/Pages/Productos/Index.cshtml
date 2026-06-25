@@ -182,7 +182,6 @@
                         <th>Precio Unitario</th>
                         <th>Costo</th>
                         <th>Stock</th>
-                        <th>Categoría</th>
                         <th>Estado</th>
                         <th>Acción</th>
                     </tr>
@@ -217,12 +216,6 @@
                             <td align="left" style="padding-top:15px;">
                                 @Math.Round(item.Stock, 2)
                             </td>
-
-                            <td align="left" style="padding-top:15px;">
-                                <a style="font-size:15px;">
-                                    @(Model.Categorias.Where(a => a.id == item.idCategoria).FirstOrDefault() == null ? "Categoria Inexistente" : Model.Categorias.Where(a => a.id == item.idCategoria).FirstOrDefault().Nombre)
-                                </a>
-                            </td>
                             @if (item.Activo)
                             {
                                 <td align="center" style="padding-top:15px;">
@@ -243,10 +236,21 @@
                                 </a>
                                 &nbsp;
 
-                                <a onclick="javascript: onClickModal('@item.id')"
-                                   class="btn btn-rounded btn-outline-danger">
-                                    Eliminar
-                                </a>
+
+                                @if(item.Activo){
+                                    <a onclick="javascript: onClickModal('@item.id')"
+                                       class="btn btn-rounded btn-outline-danger">
+                                        Desactivar
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a onclick="javascript: onClickModal('@item.id')"
+                                       class="btn btn-rounded btn-outline-success">
+                                        Activar
+                                    </a>
+                                }
+                            
                             </td>
                         </tr>
                     }
@@ -260,7 +264,6 @@
                         <th>Precio Unitario</th>
                         <th>Costo</th>
                         <th>Stock</th>
-                        <th>Categoría</th>
                         <th>Estado</th>
                         <th>Acción</th>
                     </tr>

@@ -190,10 +190,21 @@
                                 </a>
                                 &nbsp;
 
-                                <a onclick="javascript: onClickModal('@item.id')"
-                                   class="btn btn-rounded btn-outline-danger">
-                                    Eliminar
-                                </a>
+
+                                @if (item.Activo)
+                                {
+                                    <a onclick="javascript: onClickModal('@item.id')"
+                                       class="btn btn-rounded btn-outline-danger">
+                                        Desactivar
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a onclick="javascript: onClickModal('@item.id')"
+                                       class="btn btn-rounded btn-outline-success">
+                                        Activar
+                                    </a>
+                                }
                             </td>
                         </tr>
                     }
