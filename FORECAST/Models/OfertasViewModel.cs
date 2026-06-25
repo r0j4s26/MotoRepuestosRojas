@@ -19,6 +19,6 @@ namespace MotoRepuestosRojas.Models
         public string Status { get; set; }
         public string TipoDocumento { get; set; }
         public decimal Redondeo { get; set; }
-        public List<DetOfertaViewModel> Detalle { get; set; }
+        public DetOfertaViewModel[] Detalle { get; set; }
     }
 }
