@@ -192,9 +192,23 @@
 
 
                             <td align="center" style="padding-top:15px;">
-                                <a asp-page="./Editar" asp-route-id="@item.id" class="btn btn-rounded btn-outline-warning"> Editar</a> &nbsp; 
+                                <a asp-page="./Editar" asp-route-id="@item.id" class="btn btn-rounded btn-outline-warning"> Editar</a> &nbsp;
 
-                                <a onclick="javascript: onClickModal('@item.id')" class="btn btn-rounded btn-outline-danger">Eliminar</a>&nbsp;
+
+                                @if (item.Activo)
+                                {
+                                    <a onclick="javascript: onClickModal('@item.id')"
+                                       class="btn btn-rounded btn-outline-danger">
+                                        Desactivar
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a onclick="javascript: onClickModal('@item.id')"
+                                       class="btn btn-rounded btn-outline-success">
+                                        Activar
+                                    </a>
+                                }
 
                             </td>
 

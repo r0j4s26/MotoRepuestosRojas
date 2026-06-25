@@ -83,9 +83,9 @@ function RecuperarInformacion() {
         $("#inputComentarios").val(Documento.Comentarios);
         $("#subG").text(formatoDecimal(Documento.Subtotal.toFixed(2)));
         $("#impG").text(formatoDecimal(Documento.TotalImpuestos.toFixed(2)));
-        $("#descG").text(formatoDecimal(Documento.TotalDescuento.toFixed(2)));
+        $("#descG").text(formatoDecimal(Documento.TotalDescuentos.toFixed(2)));
         $("#totG").text(formatoDecimal(Documento.TotalCompra.toFixed(2)));
-        $("#descuento").text(formatoDecimal(Documento.PorDescto.toFixed(2)));
+     
 
         for (var i = 0; i < Documento.Detalle.length; i++) {
             var PE = Productos.find(a => a.id == Documento.Detalle[i].idProducto);
@@ -1113,7 +1113,7 @@ function Generar() {
 
 
         var EncOferta = {
-            id: 0,
+            id: $("#id").val(),
             idCliente: $("#ClienteSeleccionado").val(),
             idUsuarioCreador: 0,
 
@@ -1180,7 +1180,7 @@ function Generar() {
                                         //Despues de insertar, ocupariamos el id del cliente en la bd 
                                         //para entonces setearlo en el array de clientes
 
-                                        window.location.href = window.location.href.split("/Nuevo")[0];
+                                        window.location.href = window.location.href.split("/Editar")[0];
 
 
                                     }
