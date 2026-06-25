@@ -3,12 +3,11 @@ using System;
 
 namespace MotoRepuestosRojas.Models
 {
-    public class OfertasViewModel
+    public class DocumentosViewModel
     {
         public int id { get; set; }
         public int idCliente { get; set; }
         public int idCondPago { get; set; }
-        public int idUsuarioCreador { get; set; }
         public DateTime Fecha { get; set; }
         public string Comentarios { get; set; }
         public decimal Subtotal { get; set; }
@@ -16,9 +15,8 @@ namespace MotoRepuestosRojas.Models
         public decimal TotalDescuentos { get; set; }
         public decimal TotalCompra { get; set; }
         public string Moneda { get; set; }
-        public string Status { get; set; }
-        public string TipoDocumento { get; set; }
-        public decimal Redondeo { get; set; }
-        public DetOfertaViewModel[] Detalle { get; set; }
+        public decimal PorDescto { get; set; }
+        public DetDocumentoViewModel[] Detalle { get; set; }
+        public int BaseEntry { get; set; }
     }
 }

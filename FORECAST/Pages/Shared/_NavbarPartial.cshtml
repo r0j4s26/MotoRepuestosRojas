@@ -209,6 +209,17 @@
                     </a>
                 </li>
             }
+            @if (!string.IsNullOrEmpty(Roles.Where(a => a == "20").FirstOrDefault()))
+            {
+                <li>
+                    <a asp-page="/Documentos/Index">
+                        <div class="parent-icon">
+                            <i class="material-icons-outlined">assignment</i>
+                        </div>
+                        <div class="menu-title">Documentos</div>
+                    </a>
+                </li>
+            }
         </ul>
         <!--end navigation-->
     </div>
