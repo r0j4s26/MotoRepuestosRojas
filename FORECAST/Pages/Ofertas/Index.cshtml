@@ -234,7 +234,7 @@
                                 </a>
                                 &nbsp;
 
-                                @if (item.Status == "0" && !string.IsNullOrEmpty(Roles.Where(a => a == "1").FirstOrDefault()))
+                                @if (item.Status == "0" && !string.IsNullOrEmpty(Roles.Where(a => a == "21").FirstOrDefault()))
                                 {
                                     <a asp-page="/Documentos/Nuevo"
                                        asp-route-id="@item.id"
