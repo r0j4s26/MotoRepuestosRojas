@@ -651,6 +651,52 @@
     <script src="/assets/js/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <style>
+        div.dt-button-collection {
+            background: #ffffff !important;
+            border: 1px solid #dee2e6 !important;
+            border-radius: 8px !important;
+            box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+            padding: .35rem !important;
+        }
+
+            /* Botones */
+            div.dt-button-collection .dt-button,
+            div.dt-button-collection button.dt-button,
+            div.dt-button-collection a.dt-button {
+                background: transparent !important;
+                color: #212529 !important;
+                border: none !important;
+                border-radius: 6px !important;
+                box-shadow: none !important;
+                width: 100% !important;
+                text-align: left !important;
+                padding: .55rem .9rem !important;
+                transition: all .2s ease;
+            }
+
+                /* Hover gris */
+                div.dt-button-collection .dt-button:hover,
+                div.dt-button-collection button.dt-button:hover,
+                div.dt-button-collection a.dt-button:hover {
+                    background: #e9ecef !important;
+                    color: #212529 !important;
+                }
+
+                /* Activo */
+                div.dt-button-collection .dt-button.active,
+                div.dt-button-collection button.dt-button.active,
+                div.dt-button-collection a.dt-button.active {
+                    background: #dee2e6 !important;
+                    color: #212529 !important;
+                }
+
+                /* Focus */
+                div.dt-button-collection .dt-button:focus,
+                div.dt-button-collection button.dt-button:focus,
+                div.dt-button-collection a.dt-button:focus {
+                    outline: none !important;
+                    box-shadow: none !important;
+                }
         /* ======== SELECT2 MODO OSCURO ======== */
         .select2-container--default .select2-selection--single {
             background-color: #0a0f1f !important; /* Fondo principal */
