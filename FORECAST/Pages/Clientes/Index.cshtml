@@ -28,7 +28,7 @@
             ids = id;
 
             Swal.fire({
-                title: '¿Desea eliminar este Cliente?',
+                title: '¿Desea inactivar/activar este Cliente?',
                 showDenyButton: true,
                 showCancelButton: false,
                 confirmButtonText: 'Aceptar',
@@ -62,7 +62,7 @@
 
                     } else {
                         Swal.fire({
-                            title: "Ha sido eliminado con éxito",
+                            title: "Ha sido activado/inactivado con éxito",
                             icon: 'success',
                             showCancelButton: false,
                             customClass: {
@@ -190,10 +190,21 @@
                                 </a>
                                 &nbsp;
 
-                                <a onclick="javascript: onClickModal('@item.id')"
-                                   class="btn btn-rounded btn-outline-danger">
-                                    Eliminar
-                                </a>
+
+                                @if (item.Activo)
+                                {
+                                    <a onclick="javascript: onClickModal('@item.id')"
+                                       class="btn btn-rounded btn-outline-danger">
+                                        Desactivar
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a onclick="javascript: onClickModal('@item.id')"
+                                       class="btn btn-rounded btn-outline-success">
+                                        Activar
+                                    </a>
+                                }
                             </td>
                         </tr>
                     }

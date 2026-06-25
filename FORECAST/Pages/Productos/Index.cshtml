@@ -30,7 +30,7 @@
             ids = id;
 
             Swal.fire({
-                title: '¿Desea eliminar este Producto?',
+                title: '¿Desea inactivar/activar este Producto?',
                 showDenyButton: true,
                 showCancelButton: false,
                 confirmButtonText: `Aceptar`,
@@ -64,7 +64,7 @@
 
                     } else {
                         Swal.fire({
-                            title: "Ha sido eliminado con éxito",
+                            title: "Ha sido inactivado/activado con éxito",
                             icon: 'success',
                             showCancelButton: false,
                             customClass: {
@@ -182,6 +182,7 @@
                         <th>Precio Unitario</th>
                         <th>Costo</th>
                         <th>Stock</th>
+                        <th>Estado</th>
                         <th>Acción</th>
                     </tr>
                 </thead>
@@ -215,7 +216,18 @@
                             <td align="left" style="padding-top:15px;">
                                 @Math.Round(item.Stock, 2)
                             </td>
-
+                            @if (item.Activo)
+                            {
+                                <td align="center" style="padding-top:15px;">
+                                    <span class="btn btn-success">Activo</span>
+                                </td>
+                            }
+                            else
+                            {
+                                <td align="center" style="padding-top:15px;">
+                                    <span class="btn btn-danger">Inactivo</span>
+                                </td>
+                            }
                             <td align="center" style="padding-top:15px;">
                                 <a asp-page="./Editar"
                                    asp-route-id="@item.id"
@@ -224,10 +236,21 @@
                                 </a>
                                 &nbsp;
 
-                                <a onclick="javascript: onClickModal('@item.id')"
-                                   class="btn btn-rounded btn-outline-danger">
-                                    Eliminar
-                                </a>
+
+                                @if(item.Activo){
+                                    <a onclick="javascript: onClickModal('@item.id')"
+                                       class="btn btn-rounded btn-outline-danger">
+                                        Desactivar
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a onclick="javascript: onClickModal('@item.id')"
+                                       class="btn btn-rounded btn-outline-success">
+                                        Activar
+                                    </a>
+                                }
+                            
                             </td>
                         </tr>
                     }
@@ -241,6 +264,7 @@
                         <th>Precio Unitario</th>
                         <th>Costo</th>
                         <th>Stock</th>
+                        <th>Estado</th>
                         <th>Acción</th>
                     </tr>
                 </tfoot>

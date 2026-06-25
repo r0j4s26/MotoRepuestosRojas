@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -60,6 +61,17 @@ namespace FORECAST.Pages.Usuarios
         {
             try
             {
+                if (Usuario == null ||
+          Usuario.idRol == 0 ||
+          string.IsNullOrWhiteSpace(Usuario.Nombre) ||
+          string.IsNullOrWhiteSpace(Usuario.NombreUsuario) ||
+          string.IsNullOrWhiteSpace(Usuario.Clave) )
+                {
+                    RolesLista = await roles.ObtenerLista("");
+
+                    ModelState.AddModelError(string.Empty, "Debe completar todos los datos obligatorios del usuario.");
+                    return Page();
+                }
                 await service.Editar(Usuario);
                 return RedirectToPage("./Index");
             }

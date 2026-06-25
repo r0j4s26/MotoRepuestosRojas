@@ -20,5 +20,7 @@ namespace MotoRepuestosRojas.Models
         public decimal Costo { get; set; }
 
         public decimal Stock { get; set; }
+
+        public bool Activo { get; set; }
     }
 }

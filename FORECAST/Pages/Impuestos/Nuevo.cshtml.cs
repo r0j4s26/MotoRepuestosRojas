@@ -33,7 +33,7 @@ namespace FORECAST.Pages.Impuestos
             try
             {
                 var Roles = ((ClaimsIdentity)User.Identity).Claims.Where(d => d.Type == "Roles").Select(s1 => s1.Value).FirstOrDefault().Split("|");
-                if (string.IsNullOrEmpty(Roles.Where(a => a == "1").FirstOrDefault()))
+                if (string.IsNullOrEmpty(Roles.Where(a => a == "15").FirstOrDefault()))
                 {
                     return RedirectToPage("/NoPermiso");
                 }
@@ -54,6 +54,14 @@ namespace FORECAST.Pages.Impuestos
         {
             try
             {
+                if (Impuestos == null ||
+          string.IsNullOrWhiteSpace(Impuestos.Codigo)
+          || Impuestos.Tarifa == null || Impuestos.Tarifa < 0
+          )
+                {
+                    ModelState.AddModelError(string.Empty, "Debe completar todos los datos obligatorios.");
+                    return Page();
+                }
                 await service.Agregar(Impuestos);
                 return RedirectToPage("./Index");
             }
