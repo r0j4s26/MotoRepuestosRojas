@@ -12,7 +12,7 @@ namespace Sicsoft.CostaRica.Checkin.Web.Models
 
         public int? idRol { get; set; }
 
-
+        public int idCaja { get; set; }
         public string Email { get; set; }
 
 

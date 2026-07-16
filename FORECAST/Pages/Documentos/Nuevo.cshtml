@@ -89,6 +89,7 @@
 <input hidden id="Bodega" value="@JsonConvert.SerializeObject(Model.Bodega)" />
 <input hidden id="Documento" value="@JsonConvert.SerializeObject(Model.Documento)" />
 <input hidden id="BaseEntry" value="@JsonConvert.SerializeObject(Model.BaseEntry)" />
+<input hidden id="CuentasBancarias" value="@JsonConvert.SerializeObject(Model.CuentasBancarias)" />
 <input hidden id="urlGenerar" value="@Url.Page("Nuevo", "AgregarDocumento")" />
 <input hidden id="urlCliente" value="@Url.Page("Nuevo", "AgregarCliente")" />
 <input hidden id="urlFacturas" value="@Url.Page("Nuevo", "Facturas")" />
@@ -282,7 +283,7 @@
             <div class="col-12 text-end">
                 <button type="button"
                         class="btn btn-rounded btn-outline-success px-5"
-                        onclick="javascript: Generar()">
+                            onclick="javascript: AbrirPago()">
                     Generar Documento
                 </button>
             </div>
@@ -412,8 +413,207 @@
         </div>
     </div>
 </div>
+<div class="modal fade"
+     id="modalPagos"
+     tabindex="-1"
+     role="dialog"
+     aria-hidden="true">
 
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Gestión de pagos</h5>
+
+                <button type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row g-3">
+
+                    <div class="col-md-4">
+                        <label for="MetodoSeleccionado" class="form-label">
+                            Método de pago
+                        </label>
+
+                        <select id="MetodoSeleccionado"
+                                class="form-control"
+                                onchange="onChangeMetodo()">
+
+                            <option value="0">Seleccione</option>
+                            <option value="Efectivo">Efectivo</option>
+                            <option value="Tarjeta">Tarjeta</option>
+                            <option value="Transferencia">Transferencia</option>
+                            <option value="Cheque">Cheque</option>
+                            <option value="Otros">Otros</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="MontoPago" class="form-label">
+                            Monto
+                        </label>
+
+                        <input type="number"
+                               id="MontoPago"
+                               class="form-control"
+                               min="0"
+                               step="0.01" />
+                    </div>
+
+                    <div class="col-md-4 cuenta-pago">
+                        <label for="CuentaB" class="form-label">
+                            Cuenta bancaria
+                        </label>
+
+                        <select id="CuentaB" class="form-control">
+                            <option value="0">Seleccione una cuenta</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4 pago-tarjeta">
+                        <label for="BINPago" class="form-label">
+                            Últimos 4 números
+                        </label>
+
+                        <input type="text"
+                               id="BINPago"
+                               class="form-control"
+                               maxlength="4"
+                               inputmode="numeric" />
+                    </div>
+
+                    <div class="col-md-4 pago-referencia">
+                        <label for="ReferenciaPago" class="form-label">
+                            Referencia
+                        </label>
+
+                        <input type="text"
+                               id="ReferenciaPago"
+                               class="form-control"
+                               maxlength="50" />
+                    </div>
+
+                    <div class="col-md-4 pago-cheque">
+                        <label for="ChequePago" class="form-label">
+                            Número de cheque
+                        </label>
+
+                        <input type="text"
+                               id="ChequePago"
+                               class="form-control"
+                               maxlength="50" />
+                    </div>
+
+                    <div class="col-md-4 pago-otro">
+                        <label for="otroPago" class="form-label">
+                            Nombre del método
+                        </label>
+
+                        <input type="text"
+                               id="otroPago"
+                               class="form-control"
+                               maxlength="50" />
+                    </div>
+
+                    <div class="col-md-4 pago-efectivo">
+                        <label for="PagadoCon" class="form-label">
+                            Pagado con
+                        </label>
+
+                        <input type="number"
+                               id="PagadoCon"
+                               class="form-control"
+                               min="0"
+                               step="0.01"
+                               oninput="calcularVueltoEfectivo()" />
+                    </div>
+
+                    <div class="col-md-4 pago-efectivo">
+                        <label for="VueltoEfectivo" class="form-label">
+                            Vuelto
+                        </label>
+
+                        <input type="text"
+                               id="VueltoEfectivo"
+                               class="form-control"
+                               value="0.00"
+                               readonly />
+                    </div>
+
+                    <div class="col-12 text-end">
+                        <button type="button"
+                                class="btn btn-outline-primary"
+                                onclick="insertarPago()">
+                            Agregar pago
+                        </button>
+                    </div>
+                </div>
+
+                <hr />
+
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Método</th>
+                                <th>Cuenta</th>
+                                <th>Referencia</th>
+                                <th>Moneda</th>
+                                <th class="text-end">Monto</th>
+                                <th class="text-center">Acción</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="tbodyPago"></tbody>
+                    </table>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 ms-auto">
+                        <div class="d-flex justify-content-between">
+                            <strong>Total documento:</strong>
+                            <span id="totPago">0.00</span>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <strong>Pagado:</strong>
+                            <span id="pagPago">0.00</span>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <strong>Faltante:</strong>
+                            <span id="fatPago">0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button"
+                        class="btn btn-outline-danger"
+                        data-dismiss="modal">
+                    Cancelar
+                </button>
+
+                <button type="button"
+                        class="btn btn-outline-success"
+                        onclick="ConfirmarPagos()">
+                    Generar documento
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
+      $(document).ready(function () {
+                $('.select2').select2();
+        });
     function maskCedula() {
         $("#Telefono").mask("9999-9999");
         var TC = $("#selectTP").val();

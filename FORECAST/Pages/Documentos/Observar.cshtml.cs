@@ -23,6 +23,7 @@ namespace MotoRepuestosRojas.Pages.Documentos
         private readonly ICrudApi<ClientesViewModel, string> serviceE;
         private readonly ICrudApi<ProductosViewModel, int> serviceP;
         private readonly ICrudApi<CondicionesPagosViewModel, int> condiciones;
+        private readonly ICrudApi<CuentasBancariasViewModel, int> cuentas;
 
 
         [BindProperty]
@@ -37,11 +38,14 @@ namespace MotoRepuestosRojas.Pages.Documentos
         [BindProperty]
         public CondicionesPagosViewModel[] Condicion { get; set; }
 
-    
+
+        [BindProperty]
+        public CuentasBancariasViewModel[] Cuentas { get; set; }
 
 
 
-        public ObservarModel(IConfiguration configuration, ICrudApi<DocumentosViewModel, int> service, ICrudApi<ClientesViewModel, string> serviceE, ICrudApi<ProductosViewModel, int> serviceP, ICrudApi<CondicionesPagosViewModel, int> condiciones)
+
+        public ObservarModel(IConfiguration configuration, ICrudApi<DocumentosViewModel, int> service, ICrudApi<CuentasBancariasViewModel, int> cuentas, ICrudApi<ClientesViewModel, string> serviceE, ICrudApi<ProductosViewModel, int> serviceP, ICrudApi<CondicionesPagosViewModel, int> condiciones)
         {
             this.service = service;
             this.serviceE = serviceE;
@@ -49,6 +53,7 @@ namespace MotoRepuestosRojas.Pages.Documentos
 
             this.configuration = configuration;
             this.condiciones = condiciones;
+            this.cuentas = cuentas;
         }
         public async Task<IActionResult> OnGetAsync(int id)
         {
@@ -68,6 +73,7 @@ namespace MotoRepuestosRojas.Pages.Documentos
                 Clientes = await serviceE.ObtenerLista("");
                 Productos = await serviceP.ObtenerLista("");
                 Condicion = await condiciones.ObtenerLista("");
+                Cuentas = await cuentas.ObtenerLista("");
 
 
                 return Page();

@@ -27,6 +27,7 @@ namespace MotoRepuestosRojas.Pages.Documentos
         private readonly ICrudApi<BodegasViewModel, int> bodegas;
         private readonly ICrudApi<CondicionesPagosViewModel, int> condiciones;
         private readonly ICrudApi<OfertasViewModel, int> serviceO; //API
+        private readonly ICrudApi<CuentasBancariasViewModel, int> cuentas;
 
 
 
@@ -70,8 +71,10 @@ namespace MotoRepuestosRojas.Pages.Documentos
         [BindProperty]
         public int BaseEntry { get; set; }
 
+        [BindProperty]
+        public CuentasBancariasViewModel[] CuentasBancarias { get; set; }
 
-        public NuevoModel(ICrudApi<DocumentosViewModel, int> service, ICrudApi<ClientesViewModel, string> clientes, ICrudApi<ProductosViewModel, int> productos, ICrudApi<CantonesViewModel, int> serviceC, ICrudApi<DistritosViewModel, int> serviceD, ICrudApi<BarriosViewModel, int> serviceB, ICrudApi<BodegasViewModel, int> bodegas, ICrudApi<CondicionesPagosViewModel, int> condiciones,  ICrudApi<OfertasViewModel, int> serviceO) //CTOR 
+        public NuevoModel(ICrudApi<DocumentosViewModel, int> service, ICrudApi<CuentasBancariasViewModel, int> cuentas, ICrudApi<ClientesViewModel, string> clientes, ICrudApi<ProductosViewModel, int> productos, ICrudApi<CantonesViewModel, int> serviceC, ICrudApi<DistritosViewModel, int> serviceD, ICrudApi<BarriosViewModel, int> serviceB, ICrudApi<BodegasViewModel, int> bodegas, ICrudApi<CondicionesPagosViewModel, int> condiciones,  ICrudApi<OfertasViewModel, int> serviceO) //CTOR 
         {
             this.service = service;
 
@@ -80,6 +83,7 @@ namespace MotoRepuestosRojas.Pages.Documentos
             this.serviceC = serviceC;
             this.serviceD = serviceD;
             this.serviceB = serviceB;
+            this.cuentas = cuentas;
 
             this.bodegas = bodegas;
             this.condiciones = condiciones;
@@ -159,6 +163,7 @@ namespace MotoRepuestosRojas.Pages.Documentos
 
                 Bodega = await bodegas.ObtenerLista("");
                 Condicion = await condiciones.ObtenerLista("");
+                CuentasBancarias = await cuentas.ObtenerLista("");
 
                 return Page();
             }
@@ -221,7 +226,8 @@ namespace MotoRepuestosRojas.Pages.Documentos
             try
             {
 
-
+                recibidos.idCaja = Convert.ToInt32(((ClaimsIdentity)User.Identity).Claims.Where(d => d.Type == "idCaja").Select(s1 => s1.Value).FirstOrDefault().ToString());
+                recibidos.idUsuarioCreador = Convert.ToInt32(((ClaimsIdentity)User.Identity).Claims.Where(d => d.Type == ClaimTypes.Actor).Select(s1 => s1.Value).FirstOrDefault().ToString());
                 var resp = await service.Agregar(recibidos);
 
                 if (recibidos.BaseEntry > 0)

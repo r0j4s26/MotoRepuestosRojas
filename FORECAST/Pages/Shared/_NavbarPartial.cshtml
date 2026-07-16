@@ -137,6 +137,20 @@
 
                             </ul>
                         }
+                             @if (!string.IsNullOrEmpty(Roles.Where(a => a == "22").FirstOrDefault()))
+                        {
+                            <ul class="mm-collapse" style="">
+
+
+                                <li>
+                                    <a asp-page="/CuentasBancarias/Index"><i class="material-icons-outlined">account_balance</i>Cuentas Bancarias</a>
+                                </li>
+
+
+
+                            </ul>
+                        }
+                   
                     </li>
                   
                         <li>
@@ -184,16 +198,31 @@
                             </ul>
                         }
                         </li>
-                   
-
-
-              
 
 
 
 
 
-                
+
+
+
+
+                    @if (!string.IsNullOrEmpty(Roles.Where(a => a == "24").FirstOrDefault()))
+                    {
+
+
+                        <li>
+                            <a class="has-arrow" href="javascript:;" aria-expanded="true">
+                                <i class="material-icons-outlined">location_on</i>Lugares
+
+                            </a>
+                            <ul class="mm-collapse" style="">
+                                <li>
+                                    <a asp-page="/Cajas/Index"><i class="material-icons-outlined">account_balance_wallet</i>Cajas</a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
                 </ul>
             </li>
             <hr />
