@@ -1,0 +1,143 @@
+﻿@page
+@model MotoRepuestosRojas.Pages.CuentasBancarias.NuevoModel
+@{
+    ViewData["Title"] = "Cuentas Bancarias";
+}
+
+@section styles {
+}
+
+@section scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function () {
+            $('.select2').select2({
+                width: '100%'
+            });
+        });
+    </script>
+}
+
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="breadcrumb-title pe-3">Cuentas Bancarias</div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item">
+                    <a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    Agregar Cuenta Bancaria
+                </li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="card-title">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h4 class="mb-0">Agregar Cuenta Bancaria</h4>
+                </div>
+
+                <div class="col-sm-6">
+                    <a asp-page="./Index"
+                       class="btn btn-outline-light btn-sm float-end me-3"
+                       style="text-decoration: underline;">
+                        Regresar
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+
+        <form method="post"
+              id="formTipos"
+              role="form"
+              novalidate
+              class="needs-validation"
+              enctype="multipart/form-data">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Cuenta.Nombre" class="form-label">
+                            Nombre <span class="text-danger">*</span>
+                        </label>
+                        <div class="input-group">
+                            <input asp-for="Cuenta.Nombre"
+                                   class="form-control border-start-0"
+                                   required
+                                   data-validation-required-message="Este campo es requerido" />
+                        </div>
+                        <span asp-validation-for="Cuenta.Nombre" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Cuenta.Moneda" class="form-label">
+                            Moneda <span class="text-danger">*</span>
+                        </label>
+                        <select asp-for="Cuenta.Moneda"
+                                class="form-control select2"
+                                required>
+                            <option value="CRC">CRC</option>
+                        </select>
+                        <span asp-validation-for="Cuenta.Moneda" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Cuenta.Tipo" class="form-label">
+                            Tipo <span class="text-danger">*</span>
+                        </label>
+                        <select asp-for="Cuenta.Tipo"
+                                class="form-control select2"
+                                required>
+                            <option value="0">Seleccione</option>
+                            <option value="Efectivo">Efectivo</option>
+                            <option value="Tarjeta">Tarjeta</option>
+                            <option value="Transferencia">Transferencia</option>
+                            <option value="Pago a Cuenta">Pago a Cuenta</option>
+                        </select>
+                        <span asp-validation-for="Cuenta.Tipo" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Cuenta.Banco" class="form-label">
+                            Banco <span class="text-danger">*</span>
+                        </label>
+                        <div class="input-group">
+                            <input asp-for="Cuenta.Banco"
+                                   class="form-control border-start-0"
+                                   required
+                                   data-validation-required-message="Este campo es requerido" />
+                        </div>
+                        <span asp-validation-for="Cuenta.Banco" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <button type="submit"
+                            id="Guardar"
+                            class="btn btn-rounded btn-outline-success px-5"
+                            title="Guardar Cuenta Bancaria">
+                        Guardar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
