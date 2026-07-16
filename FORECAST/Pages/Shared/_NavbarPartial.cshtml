@@ -107,7 +107,7 @@
                     </li>
                     <li>
                         <a class="has-arrow" href="javascript:;" aria-expanded="true">
-                            <i class="material-icons-outlined">price_change</i>Precios
+                            <i class="material-icons-outlined">price_change</i>Contabilidad
 
                         </a>
 
@@ -149,6 +149,17 @@
 
 
                             </ul>
+                        }
+                              @if (!string.IsNullOrEmpty(Roles.Where(a => a == "27").FirstOrDefault()))
+                        {
+                        <ul class="mm-collapse">
+                            <li>
+                                <a asp-page="/CierreCajas/Index">
+                                    <i class="material-icons-outlined">point_of_sale</i>
+                                    <span>Cierre de Cajas</span>
+                                </a>
+                            </li>
+                        </ul>
                         }
                    
                     </li>
@@ -223,6 +234,7 @@
                             </ul>
                         </li>
                     }
+                 
                 </ul>
             </li>
             <hr />
@@ -246,6 +258,17 @@
                             <i class="material-icons-outlined">assignment</i>
                         </div>
                         <div class="menu-title">Documentos</div>
+                    </a>
+                </li>
+            }
+            @if (!string.IsNullOrEmpty(Roles.Where(a => a == "28").FirstOrDefault()))
+            {
+                <li>
+                    <a asp-page="/CierreCajas/Editar">
+                        <div class="parent-icon">
+                            <i class="material-icons-outlined">point_of_sale</i>
+                        </div>
+                        <div class="menu-title">Cierre Caja</div>
                     </a>
                 </li>
             }

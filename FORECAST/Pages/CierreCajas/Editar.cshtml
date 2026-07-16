@@ -1,0 +1,1327 @@
+﻿@page
+@model MotoRepuestosRojas.Pages.CierreCajas.EditarModel
+@{
+    ViewData["Title"] = "Cierre Cajas";
+    NumberFormatInfo formato = new CultureInfo("es-CR").NumberFormat;
+    formato.CurrencySymbol = "";
+    formato.CurrencyGroupSeparator = ",";
+    formato.NumberDecimalSeparator = ".";
+}
+@using Microsoft.AspNetCore.Http
+@using System;
+@using System.Collections.Generic;
+@using System.IO;
+@using System.Linq;
+@using System.Security.Claims;
+@using System.Threading.Tasks;
+@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.AspNetCore.Mvc.RazorPages;
+@using Microsoft.Extensions.Configuration;
+@using Refit;
+@using Sicsoft.Checkin.Web.Models;
+@inject IHttpContextAccessor httpContextAccessor
+@{
+    var Roles = ((ClaimsIdentity)User.Identity).Claims.Where(d => d.Type == "Roles").Select(s1 => s1.Value).FirstOrDefault().Split("|");
+}
+@section styles {
+
+
+}
+@section scripts {
+
+
+    <script>
+         var btn = document.getElementById('Guardar');
+         $(document).ready(function () {
+             Ocultar();
+             Totalizado();
+
+
+             btn.disabled = false;
+             var Anterior = "@Model.Anterior";
+             if (Anterior === "SI") {
+                 Swal.fire({
+                     icon: 'warning',
+                     title: 'Advertencia...',
+                     text: 'Esta caja tiene un cierre del dÃ­a anterior pendiente, por ello es redireccionado a esta página para que se realice'
+                 });
+             }
+         });
+        var Pais = "";
+         function onChangeTotales() {
+             try {
+               
+                     var EfectivoColones = parseFloat($("#EfectivoColonesC").val());
+                     var TarjetasColones = parseFloat($("#TarjetaColonesC").val());
+                     var ChequesColones = parseFloat($("#ChequesColonesC").val());
+                     var OtrosColones = parseFloat($("#OtrosMediosColonesC").val());
+                     var TransferenciasColones = parseFloat($("#TransferenciasColonesC").val());
+                 
+
+
+
+                 var EfectivoDolares = parseFloat($("#EfectivoDolaresC").val());
+                 var TarjetasDolares = parseFloat($("#TarjetaDolaresC").val());
+                 var ChequesDolares = parseFloat($("#ChequesDolaresC").val());
+                 var OtrosDolares = parseFloat($("#OtrosMediosFCC").val());
+                 var TransferenciasDolares = parseFloat($("#TransferenciasDolaresC").val());
+
+
+                 var TotalizadoColones = EfectivoColones + TarjetasColones + ChequesColones + OtrosColones + TransferenciasColones;
+                 var TotalizadoDolares = EfectivoDolares + TarjetasDolares + ChequesDolares + OtrosDolares + TransferenciasDolares;
+
+                 $("#Colones").val(TotalizadoColones);
+                 $("#Dolares").val(TotalizadoDolares);
+
+                 Totalizado();
+
+             } catch (e) {
+                 alert(e);
+
+             }
+
+
+         }
+         function Totalizado() {
+             try {
+               
+              
+                     var Colones = parseFloat($("#Colones").val());
+                     var Dolares = (parseFloat($("#Dolares").val()));
+
+                     var Totalizado = parseFloat((Colones + Dolares).toFixed(2));
+                
+
+                 $("#TotalizadoMonedas").val(Totalizado);
+
+             
+                     var TColones = parseFloat($("#TColones").val());
+                     var FaltanteC = (TColones - Colones).toFixed(2);
+                 
+
+                 var TDolares = parseFloat($("#TDolares").val());
+
+
+                 var FaltanteD = (TDolares - parseFloat($("#Dolares").val())).toFixed(2);
+
+                     $("#FColones").val(FaltanteC);
+                 
+
+                 $("#FDolares").val(FaltanteD);
+
+
+             } catch (e) {
+                 alert(e);
+             }
+         }
+
+
+         function Imprimir() {
+             try {
+                 var html = $("#html2").html();
+                 html2pdf().from(html).set({
+                     margin: 1,
+                     filename: 'Cierre.pdf',
+                     image: { type: 'jpeg', quality: 1 },
+                     html2canvas: { scale: 2, logging: true },
+                     jsPDF: { unit: 'in', format: 'A2', orientation: 'portrait' }
+                 }).save();
+
+             } catch (e) {
+                 console.error(e);
+             }
+         }
+
+         function Generar() {
+             try {
+                 btn.disabled = true;
+                 $("#divProcesando").modal("show");
+                 Rellenar();
+                 $("#divProcesando").modal("hide");
+                 Swal.fire({
+                     title: 'Se descargará¡ un reporte en PDF',
+                     icon: 'warning',
+                     confirmButtonColor: '#3085d6',
+                     confirmButtonText: 'Ok'
+                 }).then((result) => {
+                     if (result.isConfirmed) {
+                         $("#formTipos").submit();
+
+                     }
+                 });
+             } catch (e) {
+                 console.error(e);
+             }
+         }
+
+         function Rellenar() {
+             try {
+              
+
+                
+                 var EfectivoColones = parseFloat($("#EfectivoColonesC").val()) || 0;
+                 var TarjetaColones = parseFloat($("#TarjetaColonesC").val()) || 0;
+                 var ChequesColones = parseFloat($("#ChequesColonesC").val()) || 0;
+                 var OtrosMediosColones = parseFloat($("#OtrosMediosColonesC").val()) || 0;
+                 var TransferenciasColones = parseFloat($("#TransferenciasColonesC").val()) || 0;
+                 var Colones = parseFloat($("#Colones").val()) || 0;
+                 var FaltanteCol = parseFloat($("#FColones").val()) || 0;
+                 
+
+                 var EfectivoDolares = parseFloat($("#EfectivoDolaresC").val()) || 0;
+                 var TarjetaDolares = parseFloat($("#TarjetaDolaresC").val()) || 0;
+                 var ChequesDolares = parseFloat($("#ChequesDolaresC").val()) || 0;
+                 var OtrosMediosFC = parseFloat($("#OtrosMediosFCC").val()) || 0;
+                 var TransferenciasDolares = parseFloat($("#TransferenciasDolaresC").val()) || 0;
+                 var Dolares = parseFloat($("#Dolares").val()) || 0;
+          
+                 var Totalizado = (Colones + (Dolares)).toFixed(2);
+               
+                 var FaltanteDol = parseFloat($("#FDolares").val()) || 0;
+
+                 if (Pais == "C" || Pais == "" ) {
+                 $("#EfecColC").text("₡" + formatoDecimal(EfectivoColones.toFixed(2)));
+                 $("#TarjColC").text("₡" + formatoDecimal(TarjetaColones.toFixed(2)));
+                 $("#CheColC").text("₡" + formatoDecimal(ChequesColones.toFixed(2)));
+                 $("#OtroColC").text("₡" + formatoDecimal(OtrosMediosColones.toFixed(2)));
+                 $("#TranColC").text("₡" + formatoDecimal(TransferenciasColones.toFixed(2)));
+                 $("#TotalRegisCol").text("₡" + formatoDecimal(Colones.toFixed(2)));
+                 $("#FColonesC").text("₡" + formatoDecimal(FaltanteCol.toFixed(2)));
+                 }
+
+                 $("#EfecDoC").text("$" + formatoDecimal(EfectivoDolares.toFixed(2)));
+                 $("#TarjDolC").text("$" + formatoDecimal(TarjetaDolares.toFixed(2)));
+                 $("#CheqDolC").text("$" + formatoDecimal(ChequesDolares.toFixed(2)));
+                 $("#OtroDolC").text("$" + formatoDecimal(OtrosMediosFC.toFixed(2)));
+                 $("#TranDolC").text("$" + formatoDecimal(TransferenciasDolares.toFixed(2)));
+                 $("#TotalRegisDol").text("$" + formatoDecimal(Dolares.toFixed(2)));
+                $("#Total").text("₡" + formatoDecimal(Totalizado));
+                 $("#FDolaresC").text("$" + formatoDecimal(FaltanteDol.toFixed(2)));
+
+                 Imprimir();
+             } catch (e) {
+                 console.error(e);
+                 Swal.fire({
+                     icon: 'error',
+                     title: 'Oops...',
+                     text: 'Error ' + e
+                 });
+             }
+         }
+
+       
+
+
+    </script>
+
+
+}
+
+
+@using Newtonsoft.Json;
+@using System.Globalization
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="breadcrumb-title pe-3">Cierre de Cajas</div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item">
+                    <a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    Generar Cierre
+                </li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<section class="content ">
+    <div class="row">
+        <div class="col-12">
+         
+
+            @{
+                var cond = Model.Condicion;
+            }
+
+
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-8">
+                            <h4 class="mb-0">Generar Cierre de Caja</h4>
+
+
+                        </div>
+                        <div class="col-4">
+                            <a asp-page="./Index"
+                               class="btn btn-outline-light btn-sm float-end me-3"
+                               style="text-decoration: underline;">
+                                <i class="lni lni-reply"></i> Regresar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- title row -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="page-header mt-0">
+                                <h2 class="d-inline"><span class="font-size-24">Cierre Caja</span></h2>
+                                <div class="text-left">
+                                    <h5>Fecha <span class="font-size-18">@Model.Cierres.FechaCaja.ToString("dd MMM yyy")</span></h5>
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Usuario</label>
+                                <input asp-for="Users.Nombre" class="form-control" readonly>
+
+
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Caja</label>
+                                <input asp-for="Caja" class="form-control" readonly>
+
+
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <div class="card mb-3">
+
+                <div class="card-body">
+                    <form method="post" id="formTipos" role="form" novalidate class="needs-validation " enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    
+
+                        <input hidden asp-for="Cierres.idCaja" />
+                        <input hidden asp-for="Cierres.FechaCaja" />
+                  
+                        <!-- title row -->
+                        <div class="row">
+                          
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+                                        <label>Apertura Colones</label>
+                                        <input type="number" asp-for="Cierres.TotalAperturaColones" class="form-control">
+
+
+                                    </div>
+                                </div>
+
+                            
+                       
+
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Apertura Dólares</label>
+                                    <input type="number" asp-for="Cierres.TotalAperturaFC" class="form-control">
+
+
+                                </div>
+                            </div>
+
+                            <!-- /.col -->
+                        </div>
+
+                        <!-- title row -->
+                        <div class="row">
+
+                            
+                                <div class="col-md-3">
+
+                                    <div class="form-group">
+                                        <label>Efectivo Colones</label>
+                                        <input id="EfectivoColonesC" number asp-for="Cierres.EfectivoColonesC" onchange="javascript: onChangeTotales();" class="form-control">
+
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-3">
+
+                                    <div class="form-group">
+                                        <label>Tarjetas Colones</label>
+                                        <input id="TarjetaColonesC" asp-for="Cierres.TarjetasColonesC" number onchange="javascript: onChangeTotales();" class="form-control">
+
+
+                                    </div>
+                                </div>
+
+                            
+                        
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Efectivo Dólares</label>
+                                    <input id="EfectivoDolaresC" asp-for="Cierres.EfectivoFCC" number onchange="javascript: onChangeTotales();" class="form-control">
+
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Tarjetas Dólares</label>
+                                    <input id="TarjetaDolaresC" asp-for="Cierres.TarjetasFCC" number onchange="javascript: onChangeTotales();" class="form-control">
+
+
+                                </div>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+
+
+                        <!-- title row -->
+                        <div class="row">
+                         
+
+                                <div class="col-md-3">
+
+                                    <div class="form-group">
+                                        <label>Cheques Colones</label>
+                                        <input id="ChequesColonesC" asp-for="Cierres.ChequesColonesC" number onchange="javascript: onChangeTotales();" class="form-control">
+
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+
+                                    <div class="form-group">
+                                        <label>Otros Colones</label>
+                                        <input id="OtrosMediosColonesC" asp-for="Cierres.OtrosMediosColonesC" number onchange="javascript: onChangeTotales();" class="form-control">
+
+
+                                    </div>
+                                </div>
+                            
+                      
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Cheques Dólares</label>
+                                    <input id="ChequesDolaresC" asp-for="Cierres.ChequesFCC" number onchange="javascript: onChangeTotales();" class="form-control">
+
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Otros Dólares</label>
+                                    <input id="OtrosMediosFCC" asp-for="Cierres.OtrosMediosFCC" number onchange="javascript: onChangeTotales();" class="form-control">
+
+
+                                </div>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <div class="row">
+                          
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+                                        <label>Transferencias Colones</label>
+                                        <input id="TransferenciasColonesC" asp-for="Cierres.TransferenciasColonesC" number onchange="javascript: onChangeTotales();" class="form-control">
+
+
+                                    </div>
+                                </div>
+
+                            
+                   
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Transferencias Dólares</label>
+                                    <input id="TransferenciasDolaresC" asp-for="Cierres.TransferenciasDolaresC" number onchange="javascript: onChangeTotales();" class="form-control">
+
+
+                                </div>
+                            </div>
+
+                            <!-- /.col -->
+                            <!-- title row -->
+
+                        </div>
+                        <!-- title row -->
+                        <div class="row" hidden>
+                         
+
+
+                                <div class="col-6">
+
+                                    <div class="form-group">
+                                        <label>Total Colones</label>
+                                        <input asp-for="Cierres.TotalVendidoColones" id="TColones" class="form-control">
+
+
+                                    </div>
+                                </div>
+                            
+                       
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Total Dólares</label>
+                                    <input asp-for="Cierres.TotalVendidoFC" id="TDolares" class="form-control">
+
+
+                                </div>
+                            </div>
+
+                            <!-- /.col -->
+                            <!-- title row -->
+
+                        </div>
+                        <div class="row">
+                      
+
+                                <div class="col-md-4">
+
+                                    <div class="form-group">
+                                        <label>Total Registrado Colones</label>
+                                        <input type="number" readonly asp-for="Cierres.TotalRegistradoColones" id="Colones" class="form-control" onchange="javascript: Totalizado()">
+
+
+                                    </div>
+                                </div>
+
+                            
+                       
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Totalizado</label>
+                                    <input asp-for="Cierres.TotalizadoMonedas" readonly id="TotalizadoMonedas" class="form-control">
+
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Total Registrado Dólares</label>
+                                    <input type="number" asp-for="Cierres.TotalRegistradoFC" readonly id="Dolares" class="form-control" onchange="javascript: Totalizado()">
+
+
+                                </div>
+                            </div>
+
+                            <!-- /.col -->
+                        </div>
+
+                        <div class="row" hidden>
+                          
+
+
+                                <div class="col-6">
+
+                                    <div class="form-group">
+                                        <label>Faltantes Colones</label>
+                                        <input id="FColones" class="form-control">
+
+
+                                    </div>
+                                </div>
+                            
+                          
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Faltantes Dólares</label>
+                                    <input id="FDolares" class="form-control">
+
+
+                                </div>
+                            </div>
+
+                            <!-- /.col -->
+                        </div>
+
+
+                        <div class="text-xs-right">
+                            <button id="Guardar" type="button" onclick="javascript: Generar()" class="btn btn-rounded btn-outline-success px-5" title="Guardar Cambios">Generar Cierre</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<div id="html2" hidden>
+    <div class="card-body">
+        <!-- title row -->
+        <div class="row">
+            <div class="col-6">
+                <div class="page-header mt-0">
+                    <h2 class="d-inline"><span class="font-size-24">Cierre Caja</span></h2>
+                    <div class="text-left">
+                        <h5>Fecha <span class="font-size-18">@Model.Cierres.FechaCaja.ToString("dd MMM yyy")</span></h5>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-2">
+                <div class="form-group">
+                    <label>Usuario</label>
+                    <h6> @Model.Users.Nombre </h6>
+
+
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-group">
+                    <label>Caja</label>
+                    <h6>@(Model.Cajos.Where(a => a.id == Model.Cierres.idCaja).FirstOrDefault() == null ? "Caja Inexistente" : Model.Cajos.Where(a => a.id == Model.Cierres.idCaja).FirstOrDefault().Nombre) </h6>
+
+
+                </div>
+            </div>
+
+            <div class="col-2">
+                <div class="form-group">
+                    <label>IP</label>
+                    <h6>@Model.Cierres.IP </h6>
+
+
+                </div>
+            </div>
+            <!-- /.col -->
+        </div>
+
+
+    </div>
+    <div class="card mb-3">
+
+        <div class="card-body">
+
+          
+            <input hidden id="TotalizadoD" value="@JsonConvert.SerializeObject(Model.TotalizadoD)" />
+
+            <!-- title row -->
+            <div class="row">
+              
+                    <div class="col-6">
+
+                        <div class="form-group">
+                            <label>Apertura Colones</label>
+                            <h6> ₡@Math.Round(Model.Cierres.TotalAperturaColones, 2).ToString("C", formato) </h6>
+
+
+                        </div>
+                    </div>
+
+                
+         
+                <div class="col-6">
+                    <div class="form-group">
+                        <label>Apertura Dólares</label>
+                        <h6> $@Math.Round(Model.Cierres.TotalAperturaFC, 2).ToString("C", formato) </h6>
+
+
+                    </div>
+                </div>
+
+                <!-- /.col -->
+            </div>
+            <hr />
+            <div class="row invoice-info">
+                <div class="col-md-4 invoice-col">
+
+                    <address>
+                        <strong class="text-blue font-size-24">Totalizados Sistema </strong>
+
+
+                    </address>
+                </div>
+
+
+
+
+
+
+                <!-- /.col -->
+            </div>
+
+            <!-- title row -->
+
+            <div class="row">
+             
+                    <div class="col-3">
+
+                        <div class="form-group">
+                            <label>Efectivo Colones</label>
+                            <h6>  ₡@Math.Round(Model.Cierres.EfectivoColones, 2).ToString("C", formato)  </h6>
+
+
+                        </div>
+                    </div>
+
+           
+                <div class="col-3">
+                    <div class="form-group">
+                        <label>Efectivo Dólares</label>
+                        <h6> $@Math.Round(Model.Cierres.EfectivoFC, 2).ToString("C", formato)  </h6>
+
+
+                    </div>
+                </div>
+             
+
+                    <div class="col-3">
+
+                        <div class="form-group">
+                            <label>Tarjetas Colones</label>
+                            <h6> ₡@Math.Round(Model.Cierres.TarjetasColones, 2).ToString("C", formato)  </h6>
+
+
+                        </div>
+                    </div>
+                
+           
+                <div class="col-3">
+                    <div class="form-group">
+                        <label>Tarjetas Dólares</label>
+                        <h6> $@Math.Round(Model.Cierres.TarjetasFC, 2).ToString("C", formato)  </h6>
+
+
+                    </div>
+                </div>
+                <!-- /.col -->
+            </div>
+
+
+            <!-- title row -->
+            <div class="row">
+               
+                    <div class="col-3">
+
+                        <div class="form-group">
+                            <label>Cheques Colones</label>
+                            <h6> ₡@Math.Round(Model.Cierres.ChequesColones, 2).ToString("C", formato)  </h6>
+
+
+                        </div>
+                    </div>
+                
+            
+                <div class="col-3">
+                    <div class="form-group">
+                        <label>Cheques Dólares</label>
+                        <h6> $@Math.Round(Model.Cierres.ChequesFC, 2).ToString("C", formato)  </h6>
+
+
+                    </div>
+                </div>
+             
+
+                    <div class="col-3">
+
+                        <div class="form-group">
+                            <label>Otros Colones</label>
+                            <h6> ₡@Math.Round(Model.Cierres.OtrosMediosColones, 2).ToString("C", formato)  </h6>
+
+
+                        </div>
+                    </div>
+                
+          
+                <div class="col-3">
+                    <div class="form-group">
+                        <label>Otros Dólares</label>
+                        <h6> $@Math.Round(Model.Cierres.OtrosMediosFC, 2).ToString("C", formato)  </h6>
+
+
+                    </div>
+                </div>
+                <!-- /.col -->
+            </div>
+            <div class="row">
+               
+
+                    <div class="col-md-3">
+
+                        <div class="form-group">
+                            <label>Transferencias Colones</label>
+                            <h6> ₡@Math.Round(Model.Cierres.TransferenciasColones, 2).ToString("C", formato)  </h6>
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+
+                        <div class="form-group">
+                            <label>Notas Crédito Colones</label>
+                            <h6> ₡@Math.Round(Model.Cierres.NotasCreditoColones, 2).ToString("C", formato)  </h6>
+
+
+                        </div>
+                    </div>
+                
+             
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Transferencias Dólares</label>
+                        <h6> $@Math.Round(Model.Cierres.TransferenciasDolares, 2).ToString("C", formato)  </h6>
+
+
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Notas Crédito Dólares</label>
+                        <h6> $@Math.Round(Model.Cierres.NotasCreditoFC, 2).ToString("C", formato)  </h6>
+
+
+                    </div>
+                </div>
+
+                <!-- /.col -->
+                <!-- title row -->
+
+            </div>
+
+            <div class="row">
+               
+
+                    <div class="col-6">
+
+                        <div class="form-group">
+                            <label>Total Colones</label>
+                            <h6> ₡@Math.Round(Model.Cierres.TotalVendidoColones, 2).ToString("C", formato)  </h6>
+
+
+                        </div>
+                    </div>
+              
+                <div class="col-6">
+                    <div class="form-group">
+                        <label>Total Dólares</label>
+                        <h6> $@Math.Round(Model.Cierres.TotalVendidoFC, 2).ToString("C", formato)  </h6>
+
+
+                    </div>
+                </div>
+
+                <!-- /.col -->
+                <!-- title row -->
+
+            </div>
+            <hr />
+            <!-- title row -->
+            <div class="row invoice-info">
+                <div class="col-md-4 invoice-col">
+
+                    <address>
+                        <strong class="text-blue font-size-24">Totalizados Cajero </strong>
+
+
+                    </address>
+                </div>
+
+
+
+
+
+
+                <!-- /.col -->
+            </div>
+            <div class="row">
+              
+
+                    <div class="col-3">
+
+                        <div class="form-group">
+                            <label>Efectivo Colones Cajero</label>
+                            <h6 id="EfecColC"> </h6>
+
+
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label>Tarjetas Colones Cajero</label>
+                            <h6 id="TarjColC">  </h6>
+
+
+                        </div>
+                    </div>
+                
+              
+            
+                <div class="col-3">
+
+                    <div class="form-group">
+                        <label>Efectivo Dólares Cajero</label>
+                        <h6 id="EfecDoC"> </h6>
+
+
+                    </div>
+                </div>
+                <div class="col-3">
+
+                    <div class="form-group">
+                        <label>Tarjetas Dólares Cajero</label>
+                        <h6 id="TarjDolC">  </h6>
+
+
+                    </div>
+                </div>
+
+                <!-- /.col -->
+            </div>
+            <div class="row">
+             
+
+                    <div class="col-3">
+
+                        <div class="form-group">
+                            <label>Cheques Colones Cajero</label>
+                            <h6 id="CheColC">  </h6>
+
+
+                        </div>
+                    </div>
+                    <div class="col-3">
+
+                        <div class="form-group">
+                            <label>Otros Colones Cajero</label>
+                            <h6 id="OtroColC">   </h6>
+
+
+                        </div>
+                    </div>
+                
+         
+                <div class="col-3">
+                    <div class="form-group">
+                        <label>Cheques Dólares Cajero</label>
+                        <h6 id="CheqDolC">   </h6>
+
+
+                    </div>
+                </div>
+
+                <div class="col-3">
+                    <div class="form-group">
+                        <label>Otros Dólares Cajero</label>
+                        <h6 id="OtroDolC">  </h6>
+
+
+                    </div>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- title row -->
+            <div class="row">
+             
+
+                    <div class="col-6">
+
+                        <div class="form-group">
+                            <label>Transferencias Colones Cajero</label>
+                            <h6 id="TranColC">  </h6>
+
+
+                        </div>
+                    </div>
+                
+          
+                <div class="col-6">
+                    <div class="form-group">
+                        <label>Transferencias Dólares Cajero</label>
+                        <h6 id="TranDolC">   </h6>
+
+
+                    </div>
+                </div>
+
+                <!-- /.col -->
+                <!-- title row -->
+
+            </div>
+            <hr />
+            <div class="row invoice-info">
+                <div class="col-md-4 invoice-col">
+
+                    <address>
+                        <strong class="text-blue font-size-24">Totales</strong>
+
+
+                    </address>
+                </div>
+
+
+
+
+
+
+                <!-- /.col -->
+            </div>
+            <div class="row">
+             
+
+                    <div class="col-4">
+
+                        <div class="form-group">
+                            <label>Total Registrado Colones</label>
+                            <h6 id="TotalRegisCol">  </h6>
+
+
+                        </div>
+                    </div>
+              
+                <div class="col-4">
+                    <div class="form-group">
+                        <label>Total Registrado Dólares</label>
+                        <h6 id="TotalRegisDol">   </h6>
+
+
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label>Totalizado</label>
+                        <h6 id="Total">  </h6>
+
+
+                    </div>
+                </div>
+
+                <!-- /.col -->
+            </div>
+
+
+
+            <div class="row">
+                @if (Model.Pais == "C" || Model.Pais == "")
+                {
+
+                    <div class="col-6">
+
+                        <div class="form-group">
+                            <label>Faltantes Colones</label>
+                            <h6 id="FColonesC">  </h6>
+
+
+                        </div>
+                    </div>
+                }
+                @if (Model.Pais == "N")
+                {
+
+                    <div class="col-6">
+
+                        <div class="form-group">
+                            <label>Faltantes CÃ³rdobas</label>
+                            <h6 id="FColonesC">  </h6>
+
+
+                        </div>
+                    </div>
+                }
+                <div class="col-6">
+                    <div class="form-group">
+                        <label>Faltantes Dólares</label>
+                        <h6 id="FDolaresC">  </h6>
+
+
+                    </div>
+                </div>
+
+                <!-- /.col -->
+            </div>
+
+
+
+
+
+
+
+
+
+        </div>
+        <div class="row">
+            <div class="col-12">
+
+                <div class="card mb-3">
+
+                    <div class="card-body">
+                        <!-- title row -->
+                        <!-- info row -->
+                        <div class="row invoice-info">
+                            <div class="col-md-4 invoice-col">
+
+                                <address>
+                                    <strong class="text-blue font-size-24">MÃ©todos Pagos </strong>
+
+
+                                </address>
+                            </div>
+
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                        <!-- Table row -->
+                        <div class="row">
+                            <div class="col-12 table-responsive">
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr class="bg-pale-info">
+                                            <th class="text-center">Método</th>
+                                            <th class="text-center">Factura</th>
+                                            <th class="text-center">Pago</th>
+                                            <th class="text-center">Banco</th>
+                                            <th class="text-center">Cuenta</th>
+                                            <th class="text-center">Referencia</th>
+                                            <th class="text-center">Moneda</th>
+                                            <th class="text-center">Tipo</th>
+                                            <th class="text-center">Total</th>
+
+
+
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+
+                                        @foreach (var item2 in Model.Pagos.GroupBy(a => a.Metodo))
+                                        {
+
+                                            @foreach (var item in item2)
+                                            {
+                                                <tr>
+                                                    <td class="text-center">@item.Metodo</td>
+
+                                                    <td class="text-right">@item.idEncabezado</td>
+
+                                                    <td>@item.id</td>
+
+                                                    <td class="text-center"> @(Model.CuentasBancarias.Where(a => a.id == item.idCuentaBancaria).FirstOrDefault() == null ? "Cuenta Inexistente" : Model.CuentasBancarias.Where(a => a.id == item.idCuentaBancaria).FirstOrDefault().Banco)</td>
+
+                                                    <td class="text-center"> @(Model.CuentasBancarias.Where(a => a.id == item.idCuentaBancaria).FirstOrDefault() == null ? "Cuenta Inexistente" : Model.CuentasBancarias.Where(a => a.id == item.idCuentaBancaria).FirstOrDefault().Nombre)</td>
+
+                                                    <td class="text-center">@item.NumReferencia</td>
+
+                                                    <td class="text-center"> @item.Moneda </td>
+                                                    <td class="text-center"> FacturaciÃ³n </td>
+
+                                                    <td class="text-right">@item.Monto.ToString("C", formato)</td>
+
+
+                                                </tr>
+                                            }
+
+                                        }
+
+                                    
+
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-12  text-right">
+
+                                <div>
+                                  
+                                        <p>Total Colones  : <span> ₡ @Math.Round(Model.TotalColones, 2).ToString("C", formato)</span> </p>
+   
+                                 
+                                    <p>Total Dólares : <span> $ @Math.Round(Model.TotalFC, 2).ToString("C", formato)</span></p>
+
+
+                                </div>
+                                <div class="total-payment">
+                                    <h3><b>Totalizado :</b>  <span> @(Model.Pais == "C" ? "₡" : Model.Pais == "N" ? "C$" : "$") @((@Math.Round(Model.Totalizado, 2).ToString("C", formato))) </span></h3>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                        <!-- /.row -->
+                        <!-- /.row -->
+
+                    </div>
+                </div>
+
+
+                <!-- Default box -->
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="card mb-3">
+
+                    <div class="card-body">
+                        <!-- title row -->
+                        <!-- info row -->
+                        <div class="row invoice-info">
+                            <div class="col-md-4 invoice-col">
+
+                                <address>
+                                    <strong class="text-blue font-size-24">Facturas Crédito </strong>
+
+
+                                </address>
+                            </div>
+
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                        <!-- Table row -->
+                        <div class="row">
+                            <div class="col-md-12 table-responsive">
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr class="bg-pale-info">
+                                            <th class="text-center">Factura</th>
+                                            <th class="text-center">Cliente</th>
+                                            <th class="text-center">CondiciÃ³n de Pago</th>
+                                            <th class="text-center">Moneda</th>
+                                            <th class="text-center">Total</th>
+
+
+
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @{
+                                            var TotalC = 0.00;
+                                            var TotalD = 0.00;
+
+
+                                        }
+                                        @foreach (var item2 in Model.Documento.Where(a => a.idCondPago != cond.id))
+                                        {
+
+
+                                            <tr>
+                                                <td class="text-center">@item2.id</td>
+
+                                                <td> @(Model.Clientes.Where(a => a.id == item2.idCliente).FirstOrDefault() == null ? "Cliente Inexistente" : Model.Clientes.Where(a => a.id == item2.idCliente).FirstOrDefault().id + " - " + Model.Clientes.Where(a => a.id == item2.idCliente).FirstOrDefault().Nombre)</td>
+
+
+                                                <td> @(Model.CondicionC.Where(a => a.id == item2.idCondPago).FirstOrDefault() == null ? "CondiciÃ³n Inexistente" : Model.CondicionC.Where(a => a.id == item2.idCondPago).FirstOrDefault().Nombre)</td>
+                                                <td class="text-center"> @item2.Moneda </td>
+
+
+
+
+
+                                                <td class="text-right"> @Math.Round(Convert.ToDecimal(item2.TotalCompra ), 2).ToString("C", formato)</td>
+
+
+
+                                                @{
+                                                    if (@item2.Moneda == "CRC" || @item2.Moneda == "COR")
+                                                    {
+                                                        TotalC += Convert.ToDouble(@item2.TotalCompra );
+                                                    }
+                                                    else
+                                                    {
+                                                        TotalD += Convert.ToDouble(@item2.TotalCompra);
+                                                    }
+
+
+                                                }
+
+
+
+
+                                            </tr>
+
+
+                                        }
+
+
+
+
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.col -->
+
+                            <div class="col-md-12  text-right">
+                                <div>
+                                    @{
+
+                                    }
+                                    @if (Model.Pais == "C" || Model.Pais == "")
+                                    {
+                                        <p>Total Colones  : <span> ₡ @Math.Round(Convert.ToDecimal(TotalC), 2).ToString("C", formato)</span> </p>
+
+                                    }
+                                    @if (Model.Pais == "N" || Model.Pais == "")
+                                    {
+                                        <p>Total CÃ³rdobas  : <span> C$ @Math.Round(Convert.ToDecimal(TotalC), 2).ToString("C", formato)</span> </p>
+
+                                    }
+                                    <p>Total Dólares  : <span> $ @Math.Round(Convert.ToDecimal(TotalD), 2).ToString("C", formato)</span></p>
+
+
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
+                        <!-- /.row -->
+                        <!-- /.row -->
+
+                    </div>
+                </div>
+
+
+                <!-- Default box -->
+
+            </div>
+        </div>
+    
+
+       
+
+  
+
+    </div>
+</div>
+
+
+<!-- Content Header (Page header) -->
