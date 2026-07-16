@@ -1,0 +1,134 @@
+﻿@page
+@model MotoRepuestosRojas.Pages.Cajas.NuevoModel
+@{
+    ViewData["Title"] = "Cajas";
+}
+
+@section styles {
+}
+
+@section scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function () {
+            $('.select2').select2({
+                width: '100%'
+            });
+        });
+    </script>
+}
+
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="breadcrumb-title pe-3">Cajas</div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item">
+                    <a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    Agregar Caja
+                </li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="card-title">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h4 class="mb-0">Agregar Caja</h4>
+                </div>
+
+                <div class="col-sm-6">
+                    <a asp-page="./Index"
+                       class="btn btn-outline-light btn-sm float-end me-3"
+                       style="text-decoration: underline;">
+                        Regresar
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+
+        <form method="post"
+              id="formTipos"
+              role="form"
+              novalidate
+              class="needs-validation"
+              enctype="multipart/form-data">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Caja.Nombre" class="form-label">
+                            Nombre de la Caja <span class="text-danger">*</span>
+                        </label>
+                        <div class="input-group">
+                            <input asp-for="Caja.Nombre"
+                                   class="form-control border-start-0"
+                                   required
+                                   data-validation-required-message="Este campo es requerido" />
+                        </div>
+                        <span asp-validation-for="Caja.Nombre" class="text-danger"></span>
+                    </div>
+                </div>
+
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Caja.MontoAperturaColones" class="form-label">
+                                Apertura Colones <span class="text-danger">*</span>
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text">₡</span>
+                                <input asp-for="Caja.MontoAperturaColones"
+                                       type="number"
+                                       step="0.01"
+                                       class="form-control"
+                                       required
+                                       data-validation-required-message="Este campo es requerido" />
+                            </div>
+                            <span asp-validation-for="Caja.MontoAperturaColones" class="text-danger"></span>
+                        </div>
+                    </div>
+             
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Caja.MontoAperturaDolares" class="form-label">
+                            Apertura Dólares <span class="text-danger">*</span>
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input asp-for="Caja.MontoAperturaDolares"
+                                   type="number"
+                                   step="0.01"
+                                   class="form-control"
+                                   required
+                                   data-validation-required-message="Este campo es requerido" />
+                        </div>
+                        <span asp-validation-for="Caja.MontoAperturaDolares" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <button type="submit"
+                            id="Guardar"
+                            class="btn btn-rounded btn-outline-success px-5"
+                            title="Guardar Caja">
+                        Guardar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
